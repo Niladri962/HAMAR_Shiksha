@@ -1,0 +1,7 @@
+-r requirements.txt
+# Hybrid retrieval: multilingual embeddings (BAAI/bge-m3, ~2.3 GB download once) + FAISS-compatible numpy index.
+--extra-index-url https://download.pytorch.org/whl/cpu
+torch>=2.2
+sentence-transformers>=3.0
+numpy>=1.26
+faiss-cpu>=1.8

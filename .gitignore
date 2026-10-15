@@ -1,0 +1,22 @@
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
+venv/
+
+# Local settings and secrets (use .env.example as the template)
+.env
+.env.docker
+.vercel/
+
+# Databases and backups (the Vercel demo database is built into deploy/demo.db.gz)
+*.db
+*.db-journal
+*.db.bak*
+*.log
+
+# Downloaded SCERT textbooks (fetched with scripts/download_scert_books.py) and generated indexes
+data/scert_cg/*.pdf
+data/scert_cg/*.part
+data/kb/
+data/kb-*/

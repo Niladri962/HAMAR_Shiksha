@@ -1,0 +1,13 @@
+{
+  "note": "Demonstration primers only - NOT SCERT material.",
+  "documents": [
+    {"file": "class5_maths_en.md", "title": "Demo Primer: Mathematics Class 5", "doc_type": "textbook", "subject": "MATH", "grade": 5, "language": "en", "curriculum_version": "DEMO-2026", "publisher": "DEMO (not SCERT)", "is_demo": true},
+    {"file": "class5_maths_hi.md", "title": "डेमो पुस्तिका: गणित कक्षा 5", "doc_type": "textbook", "subject": "MATH", "grade": 5, "language": "hi", "curriculum_version": "DEMO-2026", "publisher": "DEMO (not SCERT)", "is_demo": true},
+    {"file": "class5_evs_en.md", "title": "Demo Primer: Environmental Studies Class 5", "doc_type": "textbook", "subject": "EVS", "grade": 5, "language": "en", "curriculum_version": "DEMO-2026", "publisher": "DEMO (not SCERT)", "is_demo": true},
+    {"file": "class5_hindi_hi.md", "title": "डेमो पुस्तिका: हिंदी व्याकरण कक्षा 5", "doc_type": "textbook", "subject": "HIN", "grade": 5, "language": "hi", "curriculum_version": "DEMO-2026", "publisher": "DEMO (not SCERT)", "is_demo": true},
+    {"file": "class5_english_en.md", "title": "Demo Primer: English Class 5", "doc_type": "textbook", "subject": "ENG", "grade": 5, "language": "en", "curriculum_version": "DEMO-2026", "publisher": "DEMO (not SCERT)", "is_demo": true},
+    {"file": "class8_maths_en.md", "title": "Demo Primer: Mathematics Class 8", "doc_type": "textbook", "subject": "MATH", "grade": 8, "language": "en", "curriculum_version": "DEMO-2026", "publisher": "DEMO (not SCERT)", "is_demo": true},
+    {"file": "class8_science_en.md", "title": "Demo Primer: Science Class 8", "doc_type": "textbook", "subject": "SCI", "grade": 8, "language": "en", "curriculum_version": "DEMO-2026", "publisher": "DEMO (not SCERT)", "is_demo": true},
+    {"file": "class8_other.md", "title": "Demo Primer: Social Science and English Class 8", "doc_type": "textbook", "subject": null, "grade": 8, "language": "en", "curriculum_version": "DEMO-2026", "publisher": "DEMO (not SCERT)", "is_demo": true}
+  ]
+}

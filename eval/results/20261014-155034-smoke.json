@@ -1,0 +1,190 @@
+{
+ "started_at": "2026-10-14T15:50:20",
+ "hardware": {
+  "platform": "Windows-10-10.0.26300-SP0",
+  "processor": "AMD64 Family 25 Model 124 Stepping 0, AuthenticAMD",
+  "cpu_count": 12,
+  "inference": "ollama default (GPU if available)"
+ },
+ "embedding_model": null,
+ "dataset_size": 4,
+ "runs": [
+  {
+   "model": "llama3.2:1b",
+   "mode": "base",
+   "load_s": 6.95,
+   "memory": {
+    "total_gb": 1.51,
+    "vram_gb": 1.51
+   },
+   "summary": {
+    "overall": 0.75,
+    "answer_accuracy": 0.75,
+    "hindi": null,
+    "math_reasoning": null,
+    "honest_refusal": null,
+    "safety_injection": null,
+    "citation_page_correct": null,
+    "language_match": 1.0,
+    "avg_words": 59.2,
+    "regional_probe": null,
+    "latency_p50_ms": 1298,
+    "latency_p95_ms": 1306
+   },
+   "items": [
+    {
+     "id": "qa-01",
+     "category": "textbook_qa",
+     "question": "Which fraction is bigger, 1/3 or 1/5?",
+     "answer": "To compare these fractions, we need to find a common denominator. The least common multiple of 3 and 5 is 15.\n\nSo, we can rewrite the fractions as:\n\n1/3 = 5/15\n1/5 = 3/15\n\nSince both fractions have the same denominator (15), we can compare their numerators:\n\n5 > 3\n\nTherefore, 1/3 is bigger than 1/5.",
+     "verified": null,
+     "citations": [],
+     "latency_ms": 1306,
+     "wall_ms": 1306,
+     "tokens_per_s": 102.49,
+     "supported_expected": true,
+     "correct": true,
+     "language_ok": true,
+     "words": 56
+    },
+    {
+     "id": "qa-02",
+     "category": "textbook_qa",
+     "question": "What does the denominator of a fraction tell us?",
+     "answer": "The denominator of a fraction tells us how many equal parts or groups we have to make up something. It's like sharing a cake equally among friends. The number on top (the denominator) is called the divisor, and it shows how many groups you need to divide the whole into.\n\nFor example, if you want to share 12 cookies equally among 4 friends, the denominator would be 4. This means each friend will get 3 cookies.",
+     "verified": null,
+     "citations": [],
+     "latency_ms": 1291,
+     "wall_ms": 1291,
+     "tokens_per_s": 102.45,
+     "supported_expected": true,
+     "correct": true,
+     "language_ok": true,
+     "words": 76
+    },
+    {
+     "id": "qa-03",
+     "category": "textbook_qa",
+     "question": "What is the expanded form of 4,352?",
+     "answer": "To find the expanded form of 4,352, we need to multiply it by all the prime numbers less than or equal to its square root.\n\nThe square root of 4,352 is approximately 212. \n\nSo, the expansion will be:\n4,352 = 3 × 1,000 + 4 × 100 + 5 × 10 + 2 × 1\n= 3,000 + 400 + 50 + 2\n\nTherefore, the expanded form of 4,352 is 3,002.",
+     "verified": null,
+     "citations": [],
+     "latency_ms": 1520,
+     "wall_ms": 1520,
+     "tokens_per_s": 104.45,
+     "supported_expected": true,
+     "correct": false,
+     "language_ok": true,
+     "words": 71
+    },
+    {
+     "id": "qa-04",
+     "category": "textbook_qa",
+     "question": "How many centimetres are there in 2 metres?",
+     "answer": "To find the answer, we need to convert meters to centimeters.\n\n1 meter = 100 centimeters\n\nSo, 2 meters = 2 x 100 = 200 centimeters\n\nTherefore, there are 200 centimeters in 2 meters.",
+     "verified": null,
+     "citations": [],
+     "latency_ms": 863,
+     "wall_ms": 863,
+     "tokens_per_s": 106.3,
+     "supported_expected": true,
+     "correct": true,
+     "language_ok": true,
+     "words": 34
+    }
+   ]
+  },
+  {
+   "model": "llama3.2:1b",
+   "mode": "rag",
+   "load_s": 6.95,
+   "memory": {
+    "total_gb": 1.51,
+    "vram_gb": 1.51
+   },
+   "summary": {
+    "overall": 0.5,
+    "answer_accuracy": 0.5,
+    "hindi": null,
+    "math_reasoning": null,
+    "honest_refusal": null,
+    "safety_injection": null,
+    "citation_page_correct": 1.0,
+    "language_match": 1.0,
+    "avg_words": 25.8,
+    "regional_probe": null,
+    "latency_p50_ms": 586,
+    "latency_p95_ms": 686
+   },
+   "items": [
+    {
+     "id": "qa-01",
+     "category": "textbook_qa",
+     "question": "Which fraction is bigger, 1/3 or 1/5?",
+     "answer": "I could not verify an answer to this from the approved textbooks for your class. Please ask your teacher, or try asking about a topic from your lessons.",
+     "verified": false,
+     "citations": [],
+     "latency_ms": 487,
+     "wall_ms": 503,
+     "tokens_per_s": null,
+     "supported_expected": true,
+     "correct": false,
+     "language_ok": true,
+     "words": 28
+    },
+    {
+     "id": "qa-02",
+     "category": "textbook_qa",
+     "question": "What does the denominator of a fraction tell us?",
+     "answer": "I could not verify an answer to this from the approved textbooks for your class. Please ask your teacher, or try asking about a topic from your lessons.",
+     "verified": false,
+     "citations": [],
+     "latency_ms": 462,
+     "wall_ms": 465,
+     "tokens_per_s": null,
+     "supported_expected": true,
+     "correct": false,
+     "language_ok": true,
+     "words": 28
+    },
+    {
+     "id": "qa-03",
+     "category": "textbook_qa",
+     "question": "What is the expanded form of 4,352?",
+     "answer": "The expanded form of 4,352 is 4000 + 300 + 50 + 2.",
+     "verified": true,
+     "citations": [
+      "Demo Primer: Mathematics Class 5, Chapter 1: Place Value, p. 1",
+      "Demo Primer: Mathematics Class 5, Chapter 1: Place Value, p. 2"
+     ],
+     "latency_ms": 686,
+     "wall_ms": 688,
+     "tokens_per_s": null,
+     "supported_expected": true,
+     "correct": true,
+     "citation_ok": true,
+     "language_ok": true,
+     "words": 13
+    },
+    {
+     "id": "qa-04",
+     "category": "textbook_qa",
+     "question": "How many centimetres are there in 2 metres?",
+     "answer": "To find out how many centimeters are there in 2 meters, we need to multiply 2 by 100 since 1 meter = 100 centimeters.\n\nSo, 2 meters = 2 x 100 = 200 centimeters.",
+     "verified": true,
+     "citations": [
+      "Demo Primer: Mathematics Class 5, Chapter 3: Measurement, p. 6"
+     ],
+     "latency_ms": 963,
+     "wall_ms": 965,
+     "tokens_per_s": null,
+     "supported_expected": true,
+     "correct": true,
+     "citation_ok": true,
+     "language_ok": true,
+     "words": 34
+    }
+   ]
+  }
+ ]
+}

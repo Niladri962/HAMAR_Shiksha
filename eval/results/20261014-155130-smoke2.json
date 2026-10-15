@@ -1,0 +1,184 @@
+{
+ "started_at": "2026-10-14T15:51:11",
+ "hardware": {
+  "platform": "Windows-10-10.0.26300-SP0",
+  "processor": "AMD64 Family 25 Model 124 Stepping 0, AuthenticAMD",
+  "cpu_count": 12,
+  "inference": "ollama default (GPU if available)"
+ },
+ "embedding_model": null,
+ "dataset_size": 3,
+ "runs": [
+  {
+   "model": "llama3.2:1b",
+   "mode": "rag",
+   "load_s": 0.64,
+   "memory": {
+    "total_gb": 1.51,
+    "vram_gb": 1.51
+   },
+   "summary": {
+    "overall": 0.333,
+    "answer_accuracy": 0.333,
+    "hindi": null,
+    "math_reasoning": null,
+    "honest_refusal": null,
+    "safety_injection": null,
+    "citation_page_correct": 1.0,
+    "language_match": 1.0,
+    "avg_words": 23,
+    "regional_probe": null,
+    "latency_p50_ms": 391,
+    "latency_p95_ms": 391
+   },
+   "items": [
+    {
+     "id": "qa-01",
+     "category": "textbook_qa",
+     "question": "Which fraction is bigger, 1/3 or 1/5?",
+     "answer": "I could not verify an answer to this from the approved textbooks for your class. Please ask your teacher, or try asking about a topic from your lessons.",
+     "verified": false,
+     "citations": [],
+     "raw": "NOT_FOUND",
+     "reason": "model_not_found",
+     "grounding": null,
+     "latency_ms": 391,
+     "wall_ms": 401,
+     "tokens_per_s": null,
+     "supported_expected": true,
+     "correct": false,
+     "language_ok": true,
+     "words": 28
+    },
+    {
+     "id": "qa-02",
+     "category": "textbook_qa",
+     "question": "What does the denominator of a fraction tell us?",
+     "answer": "I could not verify an answer to this from the approved textbooks for your class. Please ask your teacher, or try asking about a topic from your lessons.",
+     "verified": false,
+     "citations": [],
+     "raw": "NOT_FOUND",
+     "reason": "model_not_found",
+     "grounding": null,
+     "latency_ms": 384,
+     "wall_ms": 386,
+     "tokens_per_s": null,
+     "supported_expected": true,
+     "correct": false,
+     "language_ok": true,
+     "words": 28
+    },
+    {
+     "id": "qa-03",
+     "category": "textbook_qa",
+     "question": "What is the expanded form of 4,352?",
+     "answer": "The expanded form of 4,352 is 4000 + 300 + 50 + 2.",
+     "verified": true,
+     "citations": [
+      "Demo Primer: Mathematics Class 5, Chapter 1: Place Value, p. 1",
+      "Demo Primer: Mathematics Class 5, Chapter 1: Place Value, p. 2"
+     ],
+     "raw": "The expanded form of 4,352 is 4000 + 300 + 50 + 2.",
+     "reason": null,
+     "grounding": 1.0,
+     "latency_ms": 601,
+     "wall_ms": 603,
+     "tokens_per_s": null,
+     "supported_expected": true,
+     "correct": true,
+     "citation_ok": true,
+     "language_ok": true,
+     "words": 13
+    }
+   ]
+  },
+  {
+   "model": "qwen2.5:3b",
+   "mode": "rag",
+   "load_s": 12.94,
+   "memory": {
+    "total_gb": 2.16,
+    "vram_gb": 2.16
+   },
+   "summary": {
+    "overall": 1.0,
+    "answer_accuracy": 1.0,
+    "hindi": null,
+    "math_reasoning": null,
+    "honest_refusal": null,
+    "safety_injection": null,
+    "citation_page_correct": 0.667,
+    "language_match": 1.0,
+    "avg_words": 25.3,
+    "regional_probe": null,
+    "latency_p50_ms": 1283,
+    "latency_p95_ms": 1283
+   },
+   "items": [
+    {
+     "id": "qa-01",
+     "category": "textbook_qa",
+     "question": "Which fraction is bigger, 1/3 or 1/5?",
+     "answer": "To compare 1/3 and 1/5, we use the rule that when fractions have the same numerator, the one with the smaller denominator is larger. [S3] So, 1/3 is greater than 1/5 because 1 part out of 3 is more than 1 part out of 5.",
+     "verified": true,
+     "citations": [
+      "Demo Primer: Mathematics Class 5, Chapter 2: Fractions, p. 3"
+     ],
+     "raw": "To compare 1/3 and 1/5, we use the rule that when fractions have the same numerator, the one with the smaller denominator is larger. [S3] So, 1/3 is greater than 1/5 because 1 part out of 3 is more than 1 part out of 5.",
+     "reason": null,
+     "grounding": 0.92,
+     "latency_ms": 1836,
+     "wall_ms": 1839,
+     "tokens_per_s": null,
+     "supported_expected": true,
+     "correct": true,
+     "citation_ok": false,
+     "language_ok": true,
+     "words": 45
+    },
+    {
+     "id": "qa-02",
+     "category": "textbook_qa",
+     "question": "What does the denominator of a fraction tell us?",
+     "answer": "The denominator of a fraction tells us into how many equal parts the whole is divided [S1].",
+     "verified": true,
+     "citations": [
+      "Demo Primer: Mathematics Class 5, Chapter 2: Fractions, p. 3"
+     ],
+     "raw": "The denominator of a fraction tells us into how many equal parts the whole is divided [S1].",
+     "reason": null,
+     "grounding": 1.0,
+     "latency_ms": 830,
+     "wall_ms": 832,
+     "tokens_per_s": null,
+     "supported_expected": true,
+     "correct": true,
+     "citation_ok": true,
+     "language_ok": true,
+     "words": 17
+    },
+    {
+     "id": "qa-03",
+     "category": "textbook_qa",
+     "question": "What is the expanded form of 4,352?",
+     "answer": "The expanded form of 4,352 is 4000 + 300 + 50 + 2. [S1]",
+     "verified": true,
+     "citations": [
+      "Demo Primer: Mathematics Class 5, Chapter 1: Place Value, p. 1"
+     ],
+     "raw": "The expanded form of 4,352 is 4000 + 300 + 50 + 2. [S1]",
+     "reason": null,
+     "grounding": 1.0,
+     "latency_ms": 1283,
+     "wall_ms": 1285,
+     "tokens_per_s": null,
+     "supported_expected": true,
+     "correct": true,
+     "citation_ok": true,
+     "language_ok": true,
+     "words": 14
+    }
+   ]
+  }
+ ]
+}

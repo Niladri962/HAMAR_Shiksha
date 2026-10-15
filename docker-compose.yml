@@ -1,0 +1,68 @@
+﻿# Demonstration / school-node stack: app + PostgreSQL + Ollama (Gyan SLM) + Caddy (HTTPS).
+#   cp .env.docker.example .env.docker   # edit secrets first
+#   docker compose --env-file .env.docker up -d --build
+# The model is pulled once by the `slm-init` job; afterwards everything runs offline.
+services:
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: hamar_shiksha
+      POSTGRES_USER: hamar
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD}
+    volumes: ["pgdata:/var/lib/postgresql/data"]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U hamar -d hamar_shiksha"]
+      interval: 10s
+      retries: 10
+
+  slm:
+    image: ollama/ollama:0.5.7
+    restart: unless-stopped
+    volumes: ["ollama:/root/.ollama"]
+    # GPU (optional): uncomment on hosts with the NVIDIA container toolkit.
+    # deploy: { resources: { reservations: { devices: [{ capabilities: [gpu] }] } } }
+
+  slm-init:
+    image: ollama/ollama:0.5.7
+    depends_on: [slm]
+    volumes: ["ollama:/root/.ollama"]
+    environment: { OLLAMA_HOST: "slm:11434" }
+    entrypoint: ["/bin/sh", "-c", "sleep 5 && ollama pull ${HS_SLM_MODEL:-llama3.2:3b}"]
+    restart: "no"
+
+  app:
+    build: { context: ., args: { WITH_EMBEDDINGS: "${WITH_EMBEDDINGS:-0}", WITH_VOICE: "${WITH_VOICE:-0}" } }
+    restart: unless-stopped
+    depends_on:
+      db: { condition: service_healthy }
+      slm: { condition: service_started }
+    environment:
+      HS_ENVIRONMENT: ${HS_ENVIRONMENT:-production}
+      HS_DATABASE_URL: postgresql+psycopg://hamar:${POSTGRES_PASSWORD}@db:5432/hamar_shiksha
+      HS_SECRET_KEY: ${HS_SECRET_KEY:?set HS_SECRET_KEY}
+      HS_COOKIE_SECURE: "true"
+      HS_ALLOW_DEMO_DATA: ${HS_ALLOW_DEMO_DATA:-false}
+      HS_SEED_DEMO: ${HS_SEED_DEMO:-0}
+      HS_ADMIN_MFA_REQUIRED: ${HS_ADMIN_MFA_REQUIRED:-true}
+      HS_NOTIFIER: ${HS_NOTIFIER:-log}
+      HS_SLM_RUNTIME: ollama
+      HS_SLM_URL: http://slm:11434
+      HS_SLM_MODEL: ${HS_SLM_MODEL:-llama3.2:3b}
+      HS_EMBEDDING_MODEL: ${HS_EMBEDDING_MODEL:-}
+      HS_STT_MODEL: ${HS_STT_MODEL:-}
+      HS_KB_DIR: /app/data/kb
+    volumes: ["appdata:/app/data"]
+    expose: ["8000"]
+
+  proxy:
+    image: caddy:2-alpine
+    restart: unless-stopped
+    depends_on: [app]
+    ports: ["80:80", "443:443"]
+    environment: { SITE_ADDRESS: "${SITE_ADDRESS:-localhost}" }
+    volumes:
+      - ./docker/Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy:/data
+
+volumes: { pgdata: {}, ollama: {}, appdata: {}, caddy: {} }

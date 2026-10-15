@@ -1,0 +1,13 @@
+.git
+.venv
+**/__pycache__
+.pytest_cache
+*.db
+*.log
+.env
+.env.docker
+data/kb
+data/kb-eval
+eval/results
+tests
+data/scert_cg/*.pdf

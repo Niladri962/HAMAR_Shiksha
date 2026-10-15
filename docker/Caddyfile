@@ -1,0 +1,9 @@
+# TLS termination. With SITE_ADDRESS=localhost (or a LAN IP) Caddy issues a
+# locally-trusted certificate; with a public domain it obtains one automatically.
+{$SITE_ADDRESS} {
+	encode gzip
+	request_body {
+		max_size 60MB
+	}
+	reverse_proxy app:8000
+}

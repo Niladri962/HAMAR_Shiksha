@@ -1,0 +1,9 @@
+tests
+eval
+docker
+Dockerfile
+docker-compose.yml
+data/kb
+data/kb-*
+data/scert_cg/*.pdf
+*.db

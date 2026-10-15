@@ -1,0 +1,8939 @@
+{
+ "openapi": "3.1.0",
+ "info": {
+  "title": "HAMAR SHIKSHA API",
+  "version": "1.0.0"
+ },
+ "paths": {
+  "/api/auth/{portal}/login": {
+   "post": {
+    "tags": [
+     "auth"
+    ],
+    "summary": "Login",
+    "operationId": "login_api_auth__portal__login_post",
+    "parameters": [
+     {
+      "name": "portal",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Portal"
+      }
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/LoginIn"
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/auth/logout": {
+   "post": {
+    "tags": [
+     "auth"
+    ],
+    "summary": "Logout",
+    "operationId": "logout_api_auth_logout_post",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/auth/me": {
+   "get": {
+    "tags": [
+     "auth"
+    ],
+    "summary": "Me",
+    "operationId": "me_api_auth_me_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/auth/change-password": {
+   "post": {
+    "tags": [
+     "auth"
+    ],
+    "summary": "Change Password",
+    "operationId": "change_password_api_auth_change_password_post",
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/ChangePasswordIn"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/auth/language": {
+   "post": {
+    "tags": [
+     "auth"
+    ],
+    "summary": "Set Language",
+    "operationId": "set_language_api_auth_language_post",
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/LanguageIn"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/auth/mfa/setup": {
+   "post": {
+    "tags": [
+     "auth"
+    ],
+    "summary": "Mfa Setup",
+    "operationId": "mfa_setup_api_auth_mfa_setup_post",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/auth/mfa/enable": {
+   "post": {
+    "tags": [
+     "auth"
+    ],
+    "summary": "Mfa Enable",
+    "operationId": "mfa_enable_api_auth_mfa_enable_post",
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/OtpIn"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/auth/password-reset/request": {
+   "post": {
+    "tags": [
+     "auth"
+    ],
+    "summary": "Password Reset Request",
+    "description": "Self-service reset for staff. Students reset through their school\n(teacher-issued temporary password), never by self-service.",
+    "operationId": "password_reset_request_api_auth_password_reset_request_post",
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/ResetRequestIn"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/auth/password-reset/confirm": {
+   "post": {
+    "tags": [
+     "auth"
+    ],
+    "summary": "Password Reset Confirm",
+    "operationId": "password_reset_confirm_api_auth_password_reset_confirm_post",
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/ResetConfirmIn"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/admin/overview": {
+   "get": {
+    "tags": [
+     "admin"
+    ],
+    "summary": "Overview",
+    "operationId": "overview_api_admin_overview_get",
+    "parameters": [
+     {
+      "name": "district_id",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "integer"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "District Id"
+      }
+     },
+     {
+      "name": "block_id",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "integer"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Block Id"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/admin/districts": {
+   "get": {
+    "tags": [
+     "admin"
+    ],
+    "summary": "Districts",
+    "operationId": "districts_api_admin_districts_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/admin/districts/{district_id}/blocks": {
+   "get": {
+    "tags": [
+     "admin"
+    ],
+    "summary": "District Blocks",
+    "operationId": "district_blocks_api_admin_districts__district_id__blocks_get",
+    "parameters": [
+     {
+      "name": "district_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "integer",
+       "title": "District Id"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/admin/blocks/{block_id}/schools": {
+   "get": {
+    "tags": [
+     "admin"
+    ],
+    "summary": "Block Schools",
+    "operationId": "block_schools_api_admin_blocks__block_id__schools_get",
+    "parameters": [
+     {
+      "name": "block_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "integer",
+       "title": "Block Id"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/admin/schools/{school_id}": {
+   "get": {
+    "tags": [
+     "admin"
+    ],
+    "summary": "School Detail",
+    "operationId": "school_detail_api_admin_schools__school_id__get",
+    "parameters": [
+     {
+      "name": "school_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "integer",
+       "title": "School Id"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/admin/classes/{class_id}": {
+   "get": {
+    "tags": [
+     "admin"
+    ],
+    "summary": "Class Detail",
+    "operationId": "class_detail_api_admin_classes__class_id__get",
+    "parameters": [
+     {
+      "name": "class_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "integer",
+       "title": "Class Id"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/admin/search/schools": {
+   "get": {
+    "tags": [
+     "admin"
+    ],
+    "summary": "Search Schools",
+    "operationId": "search_schools_api_admin_search_schools_get",
+    "parameters": [
+     {
+      "name": "code",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string",
+         "maxLength": 20
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Code"
+      }
+     },
+     {
+      "name": "q",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string",
+         "maxLength": 80
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Q"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/admin/needs-support": {
+   "get": {
+    "tags": [
+     "admin"
+    ],
+    "summary": "Needs Support",
+    "operationId": "needs_support_api_admin_needs_support_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/admin/insights": {
+   "get": {
+    "tags": [
+     "admin"
+    ],
+    "summary": "List Insights",
+    "operationId": "list_insights_api_admin_insights_get",
+    "parameters": [
+     {
+      "name": "status",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Status"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/admin/insights/refresh": {
+   "post": {
+    "tags": [
+     "admin"
+    ],
+    "summary": "Refresh Insights",
+    "operationId": "refresh_insights_api_admin_insights_refresh_post",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/admin/insights/{rec_id}/review": {
+   "post": {
+    "tags": [
+     "admin"
+    ],
+    "summary": "Review Insight",
+    "operationId": "review_insight_api_admin_insights__rec_id__review_post",
+    "parameters": [
+     {
+      "name": "rec_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "integer",
+       "title": "Rec Id"
+      }
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/app__routers__admin__ReviewIn"
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/admin/registry/{code}": {
+   "get": {
+    "tags": [
+     "admin"
+    ],
+    "summary": "Registry Lookup",
+    "operationId": "registry_lookup_api_admin_registry__code__get",
+    "parameters": [
+     {
+      "name": "code",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Code"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/admin/registry/import": {
+   "post": {
+    "tags": [
+     "admin"
+    ],
+    "summary": "Registry Import",
+    "operationId": "registry_import_api_admin_registry_import_post",
+    "requestBody": {
+     "content": {
+      "multipart/form-data": {
+       "schema": {
+        "$ref": "#/components/schemas/Body_registry_import_api_admin_registry_import_post"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/admin/schools": {
+   "post": {
+    "tags": [
+     "admin"
+    ],
+    "summary": "Register School",
+    "operationId": "register_school_api_admin_schools_post",
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/RegisterSchoolIn"
+       }
+      }
+     }
+    },
+    "responses": {
+     "201": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   },
+   "get": {
+    "tags": [
+     "admin"
+    ],
+    "summary": "List Schools",
+    "operationId": "list_schools_api_admin_schools_get",
+    "parameters": [
+     {
+      "name": "status",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "enum": [
+        "pending",
+        "active",
+        "suspended",
+        "closed"
+       ],
+       "type": "string",
+       "default": "pending",
+       "title": "Status"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/admin/teachers/pending": {
+   "get": {
+    "tags": [
+     "admin"
+    ],
+    "summary": "Pending Teachers",
+    "operationId": "pending_teachers_api_admin_teachers_pending_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/admin/schools/{school_id}/activate": {
+   "post": {
+    "tags": [
+     "admin"
+    ],
+    "summary": "Activate School",
+    "operationId": "activate_school_api_admin_schools__school_id__activate_post",
+    "parameters": [
+     {
+      "name": "school_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "integer",
+       "title": "School Id"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/admin/schools/{school_id}/status": {
+   "post": {
+    "tags": [
+     "admin"
+    ],
+    "summary": "Set School Status",
+    "operationId": "set_school_status_api_admin_schools__school_id__status_post",
+    "parameters": [
+     {
+      "name": "school_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "integer",
+       "title": "School Id"
+      }
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/SchoolStatusIn"
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/admin/schools/{school_id}/classes": {
+   "post": {
+    "tags": [
+     "admin"
+    ],
+    "summary": "Create Class",
+    "operationId": "create_class_api_admin_schools__school_id__classes_post",
+    "parameters": [
+     {
+      "name": "school_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "integer",
+       "title": "School Id"
+      }
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/ClassIn"
+       }
+      }
+     }
+    },
+    "responses": {
+     "201": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/admin/admins": {
+   "get": {
+    "tags": [
+     "admin"
+    ],
+    "summary": "List Admins",
+    "operationId": "list_admins_api_admin_admins_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     }
+    }
+   },
+   "post": {
+    "tags": [
+     "admin"
+    ],
+    "summary": "Create Admin",
+    "operationId": "create_admin_api_admin_admins_post",
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/AdminIn"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "201": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/admin/admins/{assignment_id}/revoke": {
+   "post": {
+    "tags": [
+     "admin"
+    ],
+    "summary": "Revoke Admin",
+    "operationId": "revoke_admin_api_admin_admins__assignment_id__revoke_post",
+    "parameters": [
+     {
+      "name": "assignment_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "integer",
+       "title": "Assignment Id"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/admin/schools/{school_id}/teachers": {
+   "get": {
+    "tags": [
+     "admin"
+    ],
+    "summary": "School Teachers",
+    "operationId": "school_teachers_api_admin_schools__school_id__teachers_get",
+    "parameters": [
+     {
+      "name": "school_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "integer",
+       "title": "School Id"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   },
+   "post": {
+    "tags": [
+     "admin"
+    ],
+    "summary": "Invite Teacher",
+    "operationId": "invite_teacher_api_admin_schools__school_id__teachers_post",
+    "parameters": [
+     {
+      "name": "school_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "integer",
+       "title": "School Id"
+      }
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/TeacherInviteIn"
+       }
+      }
+     }
+    },
+    "responses": {
+     "201": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/admin/teachers/{user_id}/verify": {
+   "post": {
+    "tags": [
+     "admin"
+    ],
+    "summary": "Verify Teacher",
+    "operationId": "verify_teacher_api_admin_teachers__user_id__verify_post",
+    "parameters": [
+     {
+      "name": "user_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "integer",
+       "title": "User Id"
+      }
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/VerifyIn"
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/admin/teachers/{user_id}/assignments": {
+   "post": {
+    "tags": [
+     "admin"
+    ],
+    "summary": "Assign Teacher",
+    "operationId": "assign_teacher_api_admin_teachers__user_id__assignments_post",
+    "parameters": [
+     {
+      "name": "user_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "integer",
+       "title": "User Id"
+      }
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/TeachAssignIn"
+       }
+      }
+     }
+    },
+    "responses": {
+     "201": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/admin/teachers/{user_id}/transfer": {
+   "post": {
+    "tags": [
+     "admin"
+    ],
+    "summary": "Transfer Teacher",
+    "operationId": "transfer_teacher_api_admin_teachers__user_id__transfer_post",
+    "parameters": [
+     {
+      "name": "user_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "integer",
+       "title": "User Id"
+      }
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/TransferIn"
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/admin/teachers/{user_id}/reset-password": {
+   "post": {
+    "tags": [
+     "admin"
+    ],
+    "summary": "Reset Teacher Password",
+    "operationId": "reset_teacher_password_api_admin_teachers__user_id__reset_password_post",
+    "parameters": [
+     {
+      "name": "user_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "integer",
+       "title": "User Id"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/admin/classes/{class_id}/students": {
+   "post": {
+    "tags": [
+     "admin"
+    ],
+    "summary": "Enroll Student",
+    "operationId": "enroll_student_api_admin_classes__class_id__students_post",
+    "parameters": [
+     {
+      "name": "class_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "integer",
+       "title": "Class Id"
+      }
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/EnrollIn"
+       }
+      }
+     }
+    },
+    "responses": {
+     "201": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/admin/school-reports": {
+   "get": {
+    "tags": [
+     "admin"
+    ],
+    "summary": "School Reports",
+    "operationId": "school_reports_api_admin_school_reports_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/admin/school-reports/{report_id}/acknowledge": {
+   "post": {
+    "tags": [
+     "admin"
+    ],
+    "summary": "Acknowledge Report",
+    "operationId": "acknowledge_report_api_admin_school_reports__report_id__acknowledge_post",
+    "parameters": [
+     {
+      "name": "report_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "integer",
+       "title": "Report Id"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/admin/reports/{kind}": {
+   "get": {
+    "tags": [
+     "admin"
+    ],
+    "summary": "Export Report",
+    "operationId": "export_report_api_admin_reports__kind__get",
+    "parameters": [
+     {
+      "name": "kind",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Kind"
+      }
+     },
+     {
+      "name": "format",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "enum": [
+        "csv",
+        "xlsx",
+        "pdf"
+       ],
+       "type": "string",
+       "default": "csv",
+       "title": "Format"
+      }
+     },
+     {
+      "name": "district_id",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "integer"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "District Id"
+      }
+     },
+     {
+      "name": "block_id",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "integer"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Block Id"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/admin/audit-logs": {
+   "get": {
+    "tags": [
+     "admin"
+    ],
+    "summary": "Audit Logs",
+    "operationId": "audit_logs_api_admin_audit_logs_get",
+    "parameters": [
+     {
+      "name": "action",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string",
+         "maxLength": 60
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Action"
+      }
+     },
+     {
+      "name": "user_id",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "integer"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "User Id"
+      }
+     },
+     {
+      "name": "outcome",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string",
+         "maxLength": 10
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Outcome"
+      }
+     },
+     {
+      "name": "limit",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "maximum": 500,
+       "default": 100,
+       "title": "Limit"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/admin/command/ptl": {
+   "get": {
+    "tags": [
+     "admin"
+    ],
+    "summary": "Planned Taught Learned",
+    "operationId": "planned_taught_learned_api_admin_command_ptl_get",
+    "parameters": [
+     {
+      "name": "district_id",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "integer"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "District Id"
+      }
+     },
+     {
+      "name": "block_id",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "integer"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Block Id"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/admin/command/expertise-gaps": {
+   "get": {
+    "tags": [
+     "admin"
+    ],
+    "summary": "Expertise Gaps",
+    "operationId": "expertise_gaps_api_admin_command_expertise_gaps_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/admin/command/correlation": {
+   "get": {
+    "tags": [
+     "admin"
+    ],
+    "summary": "Attendance Learning",
+    "operationId": "attendance_learning_api_admin_command_correlation_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/admin/command/participation": {
+   "get": {
+    "tags": [
+     "admin"
+    ],
+    "summary": "Participation",
+    "operationId": "participation_api_admin_command_participation_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/admin/command/devices": {
+   "get": {
+    "tags": [
+     "admin"
+    ],
+    "summary": "Devices",
+    "operationId": "devices_api_admin_command_devices_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/admin/command/devices/{device_id}/revoke": {
+   "post": {
+    "tags": [
+     "admin"
+    ],
+    "summary": "Revoke Device",
+    "operationId": "revoke_device_api_admin_command_devices__device_id__revoke_post",
+    "parameters": [
+     {
+      "name": "device_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "integer",
+       "title": "Device Id"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/admin/command/progress-grades": {
+   "get": {
+    "tags": [
+     "admin"
+    ],
+    "summary": "Progress Grades",
+    "description": "Milestone-based academic progress grade per school, rolled up to the next level down.",
+    "operationId": "progress_grades_api_admin_command_progress_grades_get",
+    "parameters": [
+     {
+      "name": "district_id",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "integer"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "District Id"
+      }
+     },
+     {
+      "name": "block_id",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "integer"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Block Id"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/admin/command/attendance-risk": {
+   "get": {
+    "tags": [
+     "admin"
+    ],
+    "summary": "Attendance Risk Summary",
+    "description": "Counts only: administrators never see the names of flagged children.",
+    "operationId": "attendance_risk_summary_api_admin_command_attendance_risk_get",
+    "parameters": [
+     {
+      "name": "district_id",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "integer"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "District Id"
+      }
+     },
+     {
+      "name": "block_id",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "integer"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Block Id"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/admin/command/digital": {
+   "get": {
+    "tags": [
+     "admin"
+    ],
+    "summary": "Digital Infrastructure",
+    "operationId": "digital_infrastructure_api_admin_command_digital_get",
+    "parameters": [
+     {
+      "name": "district_id",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "integer"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "District Id"
+      }
+     },
+     {
+      "name": "block_id",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "integer"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Block Id"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/admin/command/recognition": {
+   "get": {
+    "tags": [
+     "admin"
+    ],
+    "summary": "Recognition View",
+    "description": "Improvement-based recognition: most improved schools, and their teachers' earned badges.",
+    "operationId": "recognition_view_api_admin_command_recognition_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/admin/teachers/{user_id}/appreciate": {
+   "post": {
+    "tags": [
+     "admin"
+    ],
+    "summary": "Appreciate Teacher",
+    "operationId": "appreciate_teacher_api_admin_teachers__user_id__appreciate_post",
+    "parameters": [
+     {
+      "name": "user_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "integer",
+       "title": "User Id"
+      }
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/AdminAppreciateIn"
+       }
+      }
+     }
+    },
+    "responses": {
+     "201": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/admin/map": {
+   "get": {
+    "tags": [
+     "admin"
+    ],
+    "summary": "Division Map",
+    "description": "Division -> district analysis for the map: schools (onboarded and in the\nregistry), teachers, students and outcome metrics, within the admin's scope.",
+    "operationId": "division_map_api_admin_map_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/admin/geography": {
+   "get": {
+    "tags": [
+     "admin"
+    ],
+    "summary": "Geography",
+    "description": "Districts/blocks the admin may use in filters and forms.",
+    "operationId": "geography_api_admin_geography_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/teacher/me": {
+   "get": {
+    "tags": [
+     "teacher"
+    ],
+    "summary": "Me",
+    "operationId": "me_api_teacher_me_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/teacher/classes/{class_id}/roster": {
+   "get": {
+    "tags": [
+     "teacher"
+    ],
+    "summary": "Roster",
+    "operationId": "roster_api_teacher_classes__class_id__roster_get",
+    "parameters": [
+     {
+      "name": "class_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "integer",
+       "title": "Class Id"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/teacher/classes/{class_id}/attendance": {
+   "get": {
+    "tags": [
+     "teacher"
+    ],
+    "summary": "Get Attendance",
+    "operationId": "get_attendance_api_teacher_classes__class_id__attendance_get",
+    "parameters": [
+     {
+      "name": "class_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "integer",
+       "title": "Class Id"
+      }
+     },
+     {
+      "name": "on",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string",
+       "format": "date",
+       "title": "On"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   },
+   "post": {
+    "tags": [
+     "teacher"
+    ],
+    "summary": "Record Attendance",
+    "operationId": "record_attendance_api_teacher_classes__class_id__attendance_post",
+    "parameters": [
+     {
+      "name": "class_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "integer",
+       "title": "Class Id"
+      }
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/AttendanceIn"
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/teacher/assignments": {
+   "get": {
+    "tags": [
+     "teacher"
+    ],
+    "summary": "List Assignments",
+    "operationId": "list_assignments_api_teacher_assignments_get",
+    "parameters": [
+     {
+      "name": "class_id",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "integer"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Class Id"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   },
+   "post": {
+    "tags": [
+     "teacher"
+    ],
+    "summary": "Create Assignment",
+    "operationId": "create_assignment_api_teacher_assignments_post",
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/AssignmentIn"
+       }
+      }
+     }
+    },
+    "responses": {
+     "201": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/teacher/assignments/{assignment_id}/submissions": {
+   "get": {
+    "tags": [
+     "teacher"
+    ],
+    "summary": "Submissions",
+    "operationId": "submissions_api_teacher_assignments__assignment_id__submissions_get",
+    "parameters": [
+     {
+      "name": "assignment_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "integer",
+       "title": "Assignment Id"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/teacher/submissions/{submission_id}/feedback": {
+   "post": {
+    "tags": [
+     "teacher"
+    ],
+    "summary": "Give Feedback",
+    "operationId": "give_feedback_api_teacher_submissions__submission_id__feedback_post",
+    "parameters": [
+     {
+      "name": "submission_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "integer",
+       "title": "Submission Id"
+      }
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/FeedbackIn"
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/teacher/assessments": {
+   "get": {
+    "tags": [
+     "teacher"
+    ],
+    "summary": "List Assessments",
+    "operationId": "list_assessments_api_teacher_assessments_get",
+    "parameters": [
+     {
+      "name": "class_id",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "integer"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Class Id"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   },
+   "post": {
+    "tags": [
+     "teacher"
+    ],
+    "summary": "Create Assessment",
+    "operationId": "create_assessment_api_teacher_assessments_post",
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/AssessmentIn"
+       }
+      }
+     }
+    },
+    "responses": {
+     "201": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/teacher/assessments/{assessment_id}": {
+   "get": {
+    "tags": [
+     "teacher"
+    ],
+    "summary": "Get Assessment",
+    "operationId": "get_assessment_api_teacher_assessments__assessment_id__get",
+    "parameters": [
+     {
+      "name": "assessment_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "integer",
+       "title": "Assessment Id"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/teacher/assessments/{assessment_id}/publish": {
+   "post": {
+    "tags": [
+     "teacher"
+    ],
+    "summary": "Publish Assessment",
+    "operationId": "publish_assessment_api_teacher_assessments__assessment_id__publish_post",
+    "parameters": [
+     {
+      "name": "assessment_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "integer",
+       "title": "Assessment Id"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/teacher/assessments/{assessment_id}/results": {
+   "get": {
+    "tags": [
+     "teacher"
+    ],
+    "summary": "Assessment Results",
+    "operationId": "assessment_results_api_teacher_assessments__assessment_id__results_get",
+    "parameters": [
+     {
+      "name": "assessment_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "integer",
+       "title": "Assessment Id"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/teacher/assessments/{assessment_id}/scores": {
+   "post": {
+    "tags": [
+     "teacher"
+    ],
+    "summary": "Enter Scores",
+    "description": "Record marks for an offline (paper) test.",
+    "operationId": "enter_scores_api_teacher_assessments__assessment_id__scores_post",
+    "parameters": [
+     {
+      "name": "assessment_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "integer",
+       "title": "Assessment Id"
+      }
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/ScoresIn"
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/teacher/classes/{class_id}/performance": {
+   "get": {
+    "tags": [
+     "teacher"
+    ],
+    "summary": "Class Performance",
+    "operationId": "class_performance_api_teacher_classes__class_id__performance_get",
+    "parameters": [
+     {
+      "name": "class_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "integer",
+       "title": "Class Id"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/teacher/students/{public_id}/progress": {
+   "get": {
+    "tags": [
+     "teacher"
+    ],
+    "summary": "Student Progress",
+    "operationId": "student_progress_api_teacher_students__public_id__progress_get",
+    "parameters": [
+     {
+      "name": "public_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Public Id"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/teacher/students/{public_id}/reset-credentials": {
+   "post": {
+    "tags": [
+     "teacher"
+    ],
+    "summary": "Reset Student Credentials",
+    "description": "School-mediated recovery: only the student's class teacher may reissue a password.",
+    "operationId": "reset_student_credentials_api_teacher_students__public_id__reset_credentials_post",
+    "parameters": [
+     {
+      "name": "public_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Public Id"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/teacher/recommendations": {
+   "get": {
+    "tags": [
+     "teacher"
+    ],
+    "summary": "Recommendations",
+    "operationId": "recommendations_api_teacher_recommendations_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/teacher/recommendations/refresh": {
+   "post": {
+    "tags": [
+     "teacher"
+    ],
+    "summary": "Refresh Recommendations",
+    "operationId": "refresh_recommendations_api_teacher_recommendations_refresh_post",
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/RefreshIn"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/teacher/recommendations/{rec_id}/review": {
+   "post": {
+    "tags": [
+     "teacher"
+    ],
+    "summary": "Review Recommendation",
+    "operationId": "review_recommendation_api_teacher_recommendations__rec_id__review_post",
+    "parameters": [
+     {
+      "name": "rec_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "integer",
+       "title": "Rec Id"
+      }
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/app__routers__teacher__ReviewIn"
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/teacher/priorities": {
+   "get": {
+    "tags": [
+     "teacher"
+    ],
+    "summary": "Priorities",
+    "description": "Weekly priority list: students with competencies needing practice, with evidence.",
+    "operationId": "priorities_api_teacher_priorities_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/teacher/students/{public_id}/record": {
+   "get": {
+    "tags": [
+     "teacher"
+    ],
+    "summary": "Student Record",
+    "operationId": "student_record_api_teacher_students__public_id__record_get",
+    "parameters": [
+     {
+      "name": "public_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Public Id"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/teacher/classes/{class_id}/ai-interactions": {
+   "get": {
+    "tags": [
+     "teacher"
+    ],
+    "summary": "Flagged Interactions",
+    "description": "Supervision view: assistant exchanges flagged by the safety filter.",
+    "operationId": "flagged_interactions_api_teacher_classes__class_id__ai_interactions_get",
+    "parameters": [
+     {
+      "name": "class_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "integer",
+       "title": "Class Id"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/teacher/reports": {
+   "get": {
+    "tags": [
+     "teacher"
+    ],
+    "summary": "My Reports",
+    "operationId": "my_reports_api_teacher_reports_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     }
+    }
+   },
+   "post": {
+    "tags": [
+     "teacher"
+    ],
+    "summary": "Submit Report",
+    "operationId": "submit_report_api_teacher_reports_post",
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/ReportIn"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "201": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/teacher/classes/{class_id}/export": {
+   "get": {
+    "tags": [
+     "teacher"
+    ],
+    "summary": "Export Class",
+    "operationId": "export_class_api_teacher_classes__class_id__export_get",
+    "parameters": [
+     {
+      "name": "class_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "integer",
+       "title": "Class Id"
+      }
+     },
+     {
+      "name": "format",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "enum": [
+        "csv",
+        "xlsx",
+        "pdf"
+       ],
+       "type": "string",
+       "default": "csv",
+       "title": "Format"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/teacher/school/classes": {
+   "get": {
+    "tags": [
+     "teacher"
+    ],
+    "summary": "School Classes",
+    "operationId": "school_classes_api_teacher_school_classes_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/teacher/school/classes/{class_id}/students": {
+   "post": {
+    "tags": [
+     "teacher"
+    ],
+    "summary": "Head Enroll",
+    "operationId": "head_enroll_api_teacher_school_classes__class_id__students_post",
+    "parameters": [
+     {
+      "name": "class_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "integer",
+       "title": "Class Id"
+      }
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/EnrollIn"
+       }
+      }
+     }
+    },
+    "responses": {
+     "201": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/teacher/school/teacher-attendance": {
+   "get": {
+    "tags": [
+     "teacher"
+    ],
+    "summary": "Get Teacher Attendance",
+    "operationId": "get_teacher_attendance_api_teacher_school_teacher_attendance_get",
+    "parameters": [
+     {
+      "name": "on",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string",
+       "format": "date",
+       "title": "On"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   },
+   "post": {
+    "tags": [
+     "teacher"
+    ],
+    "summary": "Record Teacher Attendance",
+    "operationId": "record_teacher_attendance_api_teacher_school_teacher_attendance_post",
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/TeacherAttIn"
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/teacher/saathi/learning-outcomes": {
+   "get": {
+    "tags": [
+     "teacher-saathi"
+    ],
+    "summary": "Learning Outcomes",
+    "operationId": "learning_outcomes_api_teacher_saathi_learning_outcomes_get",
+    "parameters": [
+     {
+      "name": "subject_id",
+      "in": "query",
+      "required": true,
+      "schema": {
+       "type": "integer",
+       "title": "Subject Id"
+      }
+     },
+     {
+      "name": "grade",
+      "in": "query",
+      "required": true,
+      "schema": {
+       "type": "integer",
+       "title": "Grade"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/teacher/saathi/plan": {
+   "get": {
+    "tags": [
+     "teacher-saathi"
+    ],
+    "summary": "Plan",
+    "operationId": "plan_api_teacher_saathi_plan_get",
+    "parameters": [
+     {
+      "name": "class_id",
+      "in": "query",
+      "required": true,
+      "schema": {
+       "type": "integer",
+       "title": "Class Id"
+      }
+     },
+     {
+      "name": "subject_id",
+      "in": "query",
+      "required": true,
+      "schema": {
+       "type": "integer",
+       "title": "Subject Id"
+      }
+     },
+     {
+      "name": "scope",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "enum": [
+        "week",
+        "month",
+        "year"
+       ],
+       "type": "string",
+       "default": "month",
+       "title": "Scope"
+      }
+     },
+     {
+      "name": "ref",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string",
+         "format": "date"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Ref"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/teacher/saathi/milestones/{milestone_id}/taught": {
+   "post": {
+    "tags": [
+     "teacher-saathi"
+    ],
+    "summary": "Mark Taught",
+    "operationId": "mark_taught_api_teacher_saathi_milestones__milestone_id__taught_post",
+    "parameters": [
+     {
+      "name": "milestone_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "integer",
+       "title": "Milestone Id"
+      }
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/TaughtIn"
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/teacher/saathi/ask": {
+   "post": {
+    "tags": [
+     "teacher-saathi"
+    ],
+    "summary": "Ask",
+    "operationId": "ask_api_teacher_saathi_ask_post",
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/app__routers__saathi__AskIn"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/teacher/saathi/lesson-plans": {
+   "get": {
+    "tags": [
+     "teacher-saathi"
+    ],
+    "summary": "List Plans",
+    "operationId": "list_plans_api_teacher_saathi_lesson_plans_get",
+    "parameters": [
+     {
+      "name": "class_id",
+      "in": "query",
+      "required": true,
+      "schema": {
+       "type": "integer",
+       "title": "Class Id"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/teacher/saathi/lesson-plans/generate": {
+   "post": {
+    "tags": [
+     "teacher-saathi"
+    ],
+    "summary": "Generate Plan",
+    "operationId": "generate_plan_api_teacher_saathi_lesson_plans_generate_post",
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/GenerateIn"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "201": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/teacher/saathi/lesson-plans/{plan_id}": {
+   "put": {
+    "tags": [
+     "teacher-saathi"
+    ],
+    "summary": "Edit Plan",
+    "operationId": "edit_plan_api_teacher_saathi_lesson_plans__plan_id__put",
+    "parameters": [
+     {
+      "name": "plan_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "integer",
+       "title": "Plan Id"
+      }
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/EditPlanIn"
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/teacher/saathi/lesson-plans/{plan_id}/approve": {
+   "post": {
+    "tags": [
+     "teacher-saathi"
+    ],
+    "summary": "Approve Plan",
+    "operationId": "approve_plan_api_teacher_saathi_lesson_plans__plan_id__approve_post",
+    "parameters": [
+     {
+      "name": "plan_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "integer",
+       "title": "Plan Id"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/teacher/saathi/worksheet": {
+   "post": {
+    "tags": [
+     "teacher-saathi"
+    ],
+    "summary": "Worksheet",
+    "description": "Draft MCQs from the textbook passages; saved as *draft* bank questions for teacher approval.",
+    "operationId": "worksheet_api_teacher_saathi_worksheet_post",
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/WorksheetIn"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/teacher/saathi/remediation": {
+   "get": {
+    "tags": [
+     "teacher-saathi"
+    ],
+    "summary": "List Remediation",
+    "operationId": "list_remediation_api_teacher_saathi_remediation_get",
+    "parameters": [
+     {
+      "name": "class_id",
+      "in": "query",
+      "required": true,
+      "schema": {
+       "type": "integer",
+       "title": "Class Id"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/teacher/saathi/remediation/from-recommendation/{rec_id}": {
+   "post": {
+    "tags": [
+     "teacher-saathi"
+    ],
+    "summary": "Remediation From Rec",
+    "operationId": "remediation_from_rec_api_teacher_saathi_remediation_from_recommendation__rec_id__post",
+    "parameters": [
+     {
+      "name": "rec_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "integer",
+       "title": "Rec Id"
+      }
+     },
+     {
+      "name": "language",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "enum": [
+        "en",
+        "hi"
+       ],
+       "type": "string",
+       "default": "hi",
+       "title": "Language"
+      }
+     }
+    ],
+    "responses": {
+     "201": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/teacher/saathi/remediation/{plan_id}/status": {
+   "post": {
+    "tags": [
+     "teacher-saathi"
+    ],
+    "summary": "Remediation Status",
+    "operationId": "remediation_status_api_teacher_saathi_remediation__plan_id__status_post",
+    "parameters": [
+     {
+      "name": "plan_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "integer",
+       "title": "Plan Id"
+      }
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/RemStatusIn"
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/teacher/saathi/training": {
+   "get": {
+    "tags": [
+     "teacher-saathi"
+    ],
+    "summary": "Training",
+    "operationId": "training_api_teacher_saathi_training_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/teacher/saathi/training/{module_id}": {
+   "get": {
+    "tags": [
+     "teacher-saathi"
+    ],
+    "summary": "Training Module",
+    "operationId": "training_module_api_teacher_saathi_training__module_id__get",
+    "parameters": [
+     {
+      "name": "module_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "integer",
+       "title": "Module Id"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/teacher/saathi/training/{module_id}/complete": {
+   "post": {
+    "tags": [
+     "teacher-saathi"
+    ],
+    "summary": "Complete Training",
+    "operationId": "complete_training_api_teacher_saathi_training__module_id__complete_post",
+    "parameters": [
+     {
+      "name": "module_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "integer",
+       "title": "Module Id"
+      }
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/TrainingIn"
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/teacher/saathi/substitute": {
+   "post": {
+    "tags": [
+     "teacher-saathi"
+    ],
+    "summary": "Launch Substitute",
+    "description": "A head teacher (school supervisor) launches an approved lesson plan for a\nclass whose subject teacher is absent. Students see it as a supervised lesson.",
+    "operationId": "launch_substitute_api_teacher_saathi_substitute_post",
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/SubstituteIn"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "201": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/teacher/saathi/approved-plans": {
+   "get": {
+    "tags": [
+     "teacher-saathi"
+    ],
+    "summary": "Approved Plans",
+    "description": "Approved plans in the teacher's school (for the substitute workflow).",
+    "operationId": "approved_plans_api_teacher_saathi_approved_plans_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/teacher/saathi/substitute/{session_id}/end": {
+   "post": {
+    "tags": [
+     "teacher-saathi"
+    ],
+    "summary": "End Substitute",
+    "operationId": "end_substitute_api_teacher_saathi_substitute__session_id__end_post",
+    "parameters": [
+     {
+      "name": "session_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "integer",
+       "title": "Session Id"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/teacher/pariksha/bank": {
+   "get": {
+    "tags": [
+     "pariksha"
+    ],
+    "summary": "Bank",
+    "operationId": "bank_api_teacher_pariksha_bank_get",
+    "parameters": [
+     {
+      "name": "subject_id",
+      "in": "query",
+      "required": true,
+      "schema": {
+       "type": "integer",
+       "title": "Subject Id"
+      }
+     },
+     {
+      "name": "grade",
+      "in": "query",
+      "required": true,
+      "schema": {
+       "type": "integer",
+       "title": "Grade"
+      }
+     },
+     {
+      "name": "status_filter",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Status Filter"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   },
+   "post": {
+    "tags": [
+     "pariksha"
+    ],
+    "summary": "Add Question",
+    "operationId": "add_question_api_teacher_pariksha_bank_post",
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/app__routers__pariksha__QuestionIn"
+       }
+      }
+     }
+    },
+    "responses": {
+     "201": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/teacher/pariksha/bank/{question_id}/{action}": {
+   "post": {
+    "tags": [
+     "pariksha"
+    ],
+    "summary": "Question Action",
+    "operationId": "question_action_api_teacher_pariksha_bank__question_id___action__post",
+    "parameters": [
+     {
+      "name": "question_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "integer",
+       "title": "Question Id"
+      }
+     },
+     {
+      "name": "action",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "enum": [
+        "approve",
+        "retire"
+       ],
+       "type": "string",
+       "title": "Action"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/teacher/pariksha/assessments": {
+   "post": {
+    "tags": [
+     "pariksha"
+    ],
+    "summary": "Assessment From Bank",
+    "operationId": "assessment_from_bank_api_teacher_pariksha_assessments_post",
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/FromBankIn"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "201": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/teacher/pariksha/review-queue": {
+   "get": {
+    "tags": [
+     "pariksha"
+    ],
+    "summary": "Review Queue",
+    "description": "Answers the engine could not grade with confidence. Nothing here counts\ntowards a learner record until a teacher confirms the marks.",
+    "operationId": "review_queue_api_teacher_pariksha_review_queue_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/teacher/pariksha/results/{result_id}/review": {
+   "post": {
+    "tags": [
+     "pariksha"
+    ],
+    "summary": "Review",
+    "operationId": "review_api_teacher_pariksha_results__result_id__review_post",
+    "parameters": [
+     {
+      "name": "result_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "integer",
+       "title": "Result Id"
+      }
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/app__routers__pariksha__ReviewIn"
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/teacher/pariksha/assessments/{assessment_id}/misconceptions": {
+   "get": {
+    "tags": [
+     "pariksha"
+    ],
+    "summary": "Misconceptions",
+    "operationId": "misconceptions_api_teacher_pariksha_assessments__assessment_id__misconceptions_get",
+    "parameters": [
+     {
+      "name": "assessment_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "integer",
+       "title": "Assessment Id"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/teacher/pariksha/competencies": {
+   "get": {
+    "tags": [
+     "pariksha"
+    ],
+    "summary": "Competencies",
+    "operationId": "competencies_api_teacher_pariksha_competencies_get",
+    "parameters": [
+     {
+      "name": "class_id",
+      "in": "query",
+      "required": true,
+      "schema": {
+       "type": "integer",
+       "title": "Class Id"
+      }
+     },
+     {
+      "name": "subject_id",
+      "in": "query",
+      "required": true,
+      "schema": {
+       "type": "integer",
+       "title": "Subject Id"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/student/me": {
+   "get": {
+    "tags": [
+     "student"
+    ],
+    "summary": "Me",
+    "operationId": "me_api_student_me_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/student/assignments": {
+   "get": {
+    "tags": [
+     "student"
+    ],
+    "summary": "Assignments",
+    "operationId": "assignments_api_student_assignments_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/student/assignments/{assignment_id}/submit": {
+   "post": {
+    "tags": [
+     "student"
+    ],
+    "summary": "Submit Assignment",
+    "operationId": "submit_assignment_api_student_assignments__assignment_id__submit_post",
+    "parameters": [
+     {
+      "name": "assignment_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "integer",
+       "title": "Assignment Id"
+      }
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/SubmitIn"
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/student/assessments": {
+   "get": {
+    "tags": [
+     "student"
+    ],
+    "summary": "Assessments",
+    "operationId": "assessments_api_student_assessments_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/student/assessments/{assessment_id}": {
+   "get": {
+    "tags": [
+     "student"
+    ],
+    "summary": "Take Assessment",
+    "operationId": "take_assessment_api_student_assessments__assessment_id__get",
+    "parameters": [
+     {
+      "name": "assessment_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "integer",
+       "title": "Assessment Id"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/student/assessments/{assessment_id}/submit": {
+   "post": {
+    "tags": [
+     "student"
+    ],
+    "summary": "Submit Assessment",
+    "operationId": "submit_assessment_api_student_assessments__assessment_id__submit_post",
+    "parameters": [
+     {
+      "name": "assessment_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "integer",
+       "title": "Assessment Id"
+      }
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/AnswersIn"
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/student/activities": {
+   "get": {
+    "tags": [
+     "student"
+    ],
+    "summary": "Activities",
+    "operationId": "activities_api_student_activities_get",
+    "parameters": [
+     {
+      "name": "subject_id",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "integer"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Subject Id"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/student/activities/{activity_id}/complete": {
+   "post": {
+    "tags": [
+     "student"
+    ],
+    "summary": "Complete Activity",
+    "operationId": "complete_activity_api_student_activities__activity_id__complete_post",
+    "parameters": [
+     {
+      "name": "activity_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "integer",
+       "title": "Activity Id"
+      }
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/CompleteIn"
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/student/practice": {
+   "get": {
+    "tags": [
+     "student"
+    ],
+    "summary": "Practice",
+    "description": "Approved bank questions at a difficulty matched to demonstrated mastery.",
+    "operationId": "practice_api_student_practice_get",
+    "parameters": [
+     {
+      "name": "subject_id",
+      "in": "query",
+      "required": true,
+      "schema": {
+       "type": "integer",
+       "title": "Subject Id"
+      }
+     },
+     {
+      "name": "topic",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Topic"
+      }
+     },
+     {
+      "name": "count",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "default": 5,
+       "title": "Count"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/student/practice/check": {
+   "post": {
+    "tags": [
+     "student"
+    ],
+    "summary": "Practice Check",
+    "description": "Score practice answers deterministically and record them in the learner record.",
+    "operationId": "practice_check_api_student_practice_check_post",
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/PracticeIn"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/student/progress": {
+   "get": {
+    "tags": [
+     "student"
+    ],
+    "summary": "Progress",
+    "operationId": "progress_api_student_progress_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/student/record": {
+   "get": {
+    "tags": [
+     "student"
+    ],
+    "summary": "Record",
+    "operationId": "record_api_student_record_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/student/recommendations": {
+   "get": {
+    "tags": [
+     "student"
+    ],
+    "summary": "Recommendations",
+    "operationId": "recommendations_api_student_recommendations_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/student/live-lesson": {
+   "get": {
+    "tags": [
+     "student"
+    ],
+    "summary": "Live Lesson",
+    "description": "An approved lesson launched today for the student's class (e.g. substitute lesson).",
+    "operationId": "live_lesson_api_student_live_lesson_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/student/assistant": {
+   "post": {
+    "tags": [
+     "student"
+    ],
+    "summary": "Ask",
+    "operationId": "ask_api_student_assistant_post",
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/app__routers__student__AskIn"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/student/assistant/history": {
+   "get": {
+    "tags": [
+     "student"
+    ],
+    "summary": "History",
+    "operationId": "history_api_student_assistant_history_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/sync/push": {
+   "post": {
+    "tags": [
+     "sync"
+    ],
+    "summary": "Push",
+    "operationId": "push_api_sync_push_post",
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/PushIn"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/sync/pull": {
+   "get": {
+    "tags": [
+     "sync"
+    ],
+    "summary": "Pull",
+    "description": "Offline bundle for the signed-in user, built with the same scope rules\nas the online APIs. Answer keys are never included.",
+    "operationId": "pull_api_sync_pull_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/sync/status": {
+   "get": {
+    "tags": [
+     "sync"
+    ],
+    "summary": "Status",
+    "operationId": "status_api_sync_status_get",
+    "parameters": [
+     {
+      "name": "device_uid",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Device Uid"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/platform": {
+   "get": {
+    "tags": [
+     "knowledge-base"
+    ],
+    "summary": "Platform",
+    "description": "Public: module names, enabled languages, demo flag.",
+    "operationId": "platform_api_platform_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/kb/status": {
+   "get": {
+    "tags": [
+     "knowledge-base"
+    ],
+    "summary": "Kb Status",
+    "operationId": "kb_status_api_kb_status_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/kb/documents": {
+   "get": {
+    "tags": [
+     "knowledge-base"
+    ],
+    "summary": "Documents",
+    "operationId": "documents_api_kb_documents_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     }
+    }
+   },
+   "post": {
+    "tags": [
+     "knowledge-base"
+    ],
+    "summary": "Upload",
+    "description": "State administrators ingest authorised material (validated upload).",
+    "operationId": "upload_api_kb_documents_post",
+    "requestBody": {
+     "content": {
+      "multipart/form-data": {
+       "schema": {
+        "$ref": "#/components/schemas/Body_upload_api_kb_documents_post"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "201": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/kb/search": {
+   "get": {
+    "tags": [
+     "knowledge-base"
+    ],
+    "summary": "Search",
+    "operationId": "search_api_kb_search_get",
+    "parameters": [
+     {
+      "name": "q",
+      "in": "query",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Q"
+      }
+     },
+     {
+      "name": "grade",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "integer"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Grade"
+      }
+     },
+     {
+      "name": "subject_id",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "integer"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Subject Id"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/kb/documents/{doc_id}/withdraw": {
+   "post": {
+    "tags": [
+     "knowledge-base"
+    ],
+    "summary": "Withdraw",
+    "operationId": "withdraw_api_kb_documents__doc_id__withdraw_post",
+    "parameters": [
+     {
+      "name": "doc_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "integer",
+       "title": "Doc Id"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/voice/status": {
+   "get": {
+    "tags": [
+     "voice"
+    ],
+    "summary": "Status",
+    "operationId": "status_api_voice_status_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/voice/transcribe": {
+   "post": {
+    "tags": [
+     "voice"
+    ],
+    "summary": "Transcribe",
+    "operationId": "transcribe_api_voice_transcribe_post",
+    "requestBody": {
+     "content": {
+      "multipart/form-data": {
+       "schema": {
+        "$ref": "#/components/schemas/Body_transcribe_api_voice_transcribe_post"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/student/growth": {
+   "get": {
+    "tags": [
+     "student-growth"
+    ],
+    "summary": "Growth",
+    "operationId": "growth_api_student_growth_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/student/goals": {
+   "post": {
+    "tags": [
+     "student-growth"
+    ],
+    "summary": "Add Goal",
+    "operationId": "add_goal_api_student_goals_post",
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/GoalIn"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "201": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/student/goals/{goal_id}/tick": {
+   "post": {
+    "tags": [
+     "student-growth"
+    ],
+    "summary": "Tick Goal",
+    "operationId": "tick_goal_api_student_goals__goal_id__tick_post",
+    "parameters": [
+     {
+      "name": "goal_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "integer",
+       "title": "Goal Id"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/student/goals/{goal_id}/archive": {
+   "post": {
+    "tags": [
+     "student-growth"
+    ],
+    "summary": "Archive Goal",
+    "operationId": "archive_goal_api_student_goals__goal_id__archive_post",
+    "parameters": [
+     {
+      "name": "goal_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "integer",
+       "title": "Goal Id"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/student/revision": {
+   "get": {
+    "tags": [
+     "student-growth"
+    ],
+    "summary": "Revision",
+    "operationId": "revision_api_student_revision_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/student/revision/{item_id}/answer": {
+   "post": {
+    "tags": [
+     "student-growth"
+    ],
+    "summary": "Revision Answer",
+    "operationId": "revision_answer_api_student_revision__item_id__answer_post",
+    "parameters": [
+     {
+      "name": "item_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "integer",
+       "title": "Item Id"
+      }
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/RevisionAnswer"
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/student/library": {
+   "get": {
+    "tags": [
+     "student-growth"
+    ],
+    "summary": "Library",
+    "operationId": "library_api_student_library_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/student/library/{doc_id}": {
+   "get": {
+    "tags": [
+     "student-growth"
+    ],
+    "summary": "Read Section",
+    "operationId": "read_section_api_student_library__doc_id__get",
+    "parameters": [
+     {
+      "name": "doc_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "integer",
+       "title": "Doc Id"
+      }
+     },
+     {
+      "name": "key",
+      "in": "query",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Key"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/student/library/{doc_id}/read": {
+   "post": {
+    "tags": [
+     "student-growth"
+    ],
+    "summary": "Mark Read",
+    "operationId": "mark_read_api_student_library__doc_id__read_post",
+    "parameters": [
+     {
+      "name": "doc_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "integer",
+       "title": "Doc Id"
+      }
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/ReadIn"
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/student/doubts": {
+   "get": {
+    "tags": [
+     "student-growth"
+    ],
+    "summary": "My Doubts",
+    "operationId": "my_doubts_api_student_doubts_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     }
+    }
+   },
+   "post": {
+    "tags": [
+     "student-growth"
+    ],
+    "summary": "Ask Doubt",
+    "operationId": "ask_doubt_api_student_doubts_post",
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/DoubtIn"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "201": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/student/doubts/{doubt_id}/replies": {
+   "post": {
+    "tags": [
+     "student-growth"
+    ],
+    "summary": "Student Reply",
+    "operationId": "student_reply_api_student_doubts__doubt_id__replies_post",
+    "parameters": [
+     {
+      "name": "doubt_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "integer",
+       "title": "Doubt Id"
+      }
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/ReplyIn"
+       }
+      }
+     }
+    },
+    "responses": {
+     "201": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/student/replies/{reply_id}/accept": {
+   "post": {
+    "tags": [
+     "student-growth"
+    ],
+    "summary": "Student Accept",
+    "operationId": "student_accept_api_student_replies__reply_id__accept_post",
+    "parameters": [
+     {
+      "name": "reply_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "integer",
+       "title": "Reply Id"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/student/replies/{reply_id}/report": {
+   "post": {
+    "tags": [
+     "student-growth"
+    ],
+    "summary": "Student Report",
+    "operationId": "student_report_api_student_replies__reply_id__report_post",
+    "parameters": [
+     {
+      "name": "reply_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "integer",
+       "title": "Reply Id"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/student/study-buddies": {
+   "get": {
+    "tags": [
+     "student-growth"
+    ],
+    "summary": "Study Buddies",
+    "operationId": "study_buddies_api_student_study_buddies_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/teacher/help/doubts": {
+   "get": {
+    "tags": [
+     "student-growth"
+    ],
+    "summary": "Teacher Doubts",
+    "operationId": "teacher_doubts_api_teacher_help_doubts_get",
+    "parameters": [
+     {
+      "name": "class_id",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "integer"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Class Id"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/teacher/help/doubts/{doubt_id}/replies": {
+   "post": {
+    "tags": [
+     "student-growth"
+    ],
+    "summary": "Teacher Reply",
+    "operationId": "teacher_reply_api_teacher_help_doubts__doubt_id__replies_post",
+    "parameters": [
+     {
+      "name": "doubt_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "integer",
+       "title": "Doubt Id"
+      }
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/ReplyIn"
+       }
+      }
+     }
+    },
+    "responses": {
+     "201": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/teacher/help/doubts/{doubt_id}/status": {
+   "post": {
+    "tags": [
+     "student-growth"
+    ],
+    "summary": "Teacher Doubt Status",
+    "operationId": "teacher_doubt_status_api_teacher_help_doubts__doubt_id__status_post",
+    "parameters": [
+     {
+      "name": "doubt_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "integer",
+       "title": "Doubt Id"
+      }
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/DoubtStatus"
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/teacher/help/replies/{reply_id}/accept": {
+   "post": {
+    "tags": [
+     "student-growth"
+    ],
+    "summary": "Teacher Accept",
+    "operationId": "teacher_accept_api_teacher_help_replies__reply_id__accept_post",
+    "parameters": [
+     {
+      "name": "reply_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "integer",
+       "title": "Reply Id"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/teacher/help/replies/{reply_id}/hide": {
+   "post": {
+    "tags": [
+     "student-growth"
+    ],
+    "summary": "Teacher Hide",
+    "operationId": "teacher_hide_api_teacher_help_replies__reply_id__hide_post",
+    "parameters": [
+     {
+      "name": "reply_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "integer",
+       "title": "Reply Id"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/teacher/help/classes/{class_id}/pairs": {
+   "get": {
+    "tags": [
+     "student-growth"
+    ],
+    "summary": "Class Pairs",
+    "operationId": "class_pairs_api_teacher_help_classes__class_id__pairs_get",
+    "parameters": [
+     {
+      "name": "class_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "integer",
+       "title": "Class Id"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   },
+   "post": {
+    "tags": [
+     "student-growth"
+    ],
+    "summary": "Create Pair",
+    "operationId": "create_pair_api_teacher_help_classes__class_id__pairs_post",
+    "parameters": [
+     {
+      "name": "class_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "integer",
+       "title": "Class Id"
+      }
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/PairIn"
+       }
+      }
+     }
+    },
+    "responses": {
+     "201": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/teacher/help/pairs/{pair_id}/end": {
+   "post": {
+    "tags": [
+     "student-growth"
+    ],
+    "summary": "End Pair",
+    "operationId": "end_pair_api_teacher_help_pairs__pair_id__end_post",
+    "parameters": [
+     {
+      "name": "pair_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "integer",
+       "title": "Pair Id"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/teacher/progress-grades": {
+   "get": {
+    "tags": [
+     "engage"
+    ],
+    "summary": "Teacher Progress Grades",
+    "description": "Planned / taught / learned grade per class-subject, with corrective actions.\n`scope=school` (head teacher only) covers every class in the school.",
+    "operationId": "teacher_progress_grades_api_teacher_progress_grades_get",
+    "parameters": [
+     {
+      "name": "scope",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "enum": [
+        "mine",
+        "school"
+       ],
+       "type": "string",
+       "default": "mine",
+       "title": "Scope"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/teacher/classes/{class_id}/attendance-risk": {
+   "get": {
+    "tags": [
+     "engage"
+    ],
+    "summary": "Class Attendance Risk",
+    "operationId": "class_attendance_risk_api_teacher_classes__class_id__attendance_risk_get",
+    "parameters": [
+     {
+      "name": "class_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "integer",
+       "title": "Class Id"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/teacher/digital": {
+   "get": {
+    "tags": [
+     "engage"
+    ],
+    "summary": "Teacher Digital",
+    "operationId": "teacher_digital_api_teacher_digital_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/teacher/digital/usage": {
+   "post": {
+    "tags": [
+     "engage"
+    ],
+    "summary": "Log Digital Usage",
+    "operationId": "log_digital_usage_api_teacher_digital_usage_post",
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/UsageIn"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "201": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/teacher/digital/resources": {
+   "post": {
+    "tags": [
+     "engage"
+    ],
+    "summary": "Add Resource",
+    "operationId": "add_resource_api_teacher_digital_resources_post",
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/ResourceIn"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "201": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/teacher/digital/resources/{resource_id}/status": {
+   "post": {
+    "tags": [
+     "engage"
+    ],
+    "summary": "Resource Status",
+    "description": "Any teacher of the school can report a fault or a repair (audited).",
+    "operationId": "resource_status_api_teacher_digital_resources__resource_id__status_post",
+    "parameters": [
+     {
+      "name": "resource_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "integer",
+       "title": "Resource Id"
+      }
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/ResourceStatusIn"
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/teacher/learning-outcomes": {
+   "get": {
+    "tags": [
+     "engage"
+    ],
+    "summary": "Outcomes For Class",
+    "operationId": "outcomes_for_class_api_teacher_learning_outcomes_get",
+    "parameters": [
+     {
+      "name": "class_id",
+      "in": "query",
+      "required": true,
+      "schema": {
+       "type": "integer",
+       "title": "Class Id"
+      }
+     },
+     {
+      "name": "subject_id",
+      "in": "query",
+      "required": true,
+      "schema": {
+       "type": "integer",
+       "title": "Subject Id"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/teacher/recognition": {
+   "get": {
+    "tags": [
+     "engage"
+    ],
+    "summary": "Teacher Recognition",
+    "operationId": "teacher_recognition_api_teacher_recognition_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/teacher/students/{public_id}/appreciate": {
+   "post": {
+    "tags": [
+     "engage"
+    ],
+    "summary": "Appreciate Student",
+    "operationId": "appreciate_student_api_teacher_students__public_id__appreciate_post",
+    "parameters": [
+     {
+      "name": "public_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Public Id"
+      }
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/AppreciateIn"
+       }
+      }
+     }
+    },
+    "responses": {
+     "201": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/teacher/colleagues/{public_id}/appreciate": {
+   "post": {
+    "tags": [
+     "engage"
+    ],
+    "summary": "Appreciate Colleague",
+    "operationId": "appreciate_colleague_api_teacher_colleagues__public_id__appreciate_post",
+    "parameters": [
+     {
+      "name": "public_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Public Id"
+      }
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/AppreciateIn"
+       }
+      }
+     }
+    },
+    "responses": {
+     "201": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/student/recognition": {
+   "get": {
+    "tags": [
+     "engage"
+    ],
+    "summary": "Student Recognition",
+    "operationId": "student_recognition_api_student_recognition_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/health": {
+   "get": {
+    "summary": "Health",
+    "operationId": "health_api_health_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     }
+    }
+   }
+  }
+ },
+ "components": {
+  "schemas": {
+   "AdminAppreciateIn": {
+    "properties": {
+     "category": {
+      "type": "string",
+      "maxLength": 20,
+      "title": "Category"
+     },
+     "message": {
+      "type": "string",
+      "maxLength": 300,
+      "title": "Message",
+      "default": ""
+     }
+    },
+    "type": "object",
+    "required": [
+     "category"
+    ],
+    "title": "AdminAppreciateIn"
+   },
+   "AdminIn": {
+    "properties": {
+     "login_id": {
+      "type": "string",
+      "maxLength": 120,
+      "minLength": 3,
+      "title": "Login Id"
+     },
+     "full_name": {
+      "type": "string",
+      "maxLength": 150,
+      "minLength": 2,
+      "title": "Full Name"
+     },
+     "email": {
+      "anyOf": [
+       {
+        "type": "string",
+        "maxLength": 200
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Email"
+     },
+     "phone": {
+      "anyOf": [
+       {
+        "type": "string",
+        "maxLength": 20
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Phone"
+     },
+     "role": {
+      "type": "string",
+      "enum": [
+       "district_admin",
+       "block_admin"
+      ],
+      "title": "Role"
+     },
+     "district_id": {
+      "anyOf": [
+       {
+        "type": "integer"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "District Id"
+     },
+     "block_id": {
+      "anyOf": [
+       {
+        "type": "integer"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Block Id"
+     }
+    },
+    "type": "object",
+    "required": [
+     "login_id",
+     "full_name",
+     "role"
+    ],
+    "title": "AdminIn"
+   },
+   "AnswersIn": {
+    "properties": {
+     "answers": {
+      "additionalProperties": {
+       "anyOf": [
+        {
+         "type": "integer"
+        },
+        {
+         "type": "string"
+        }
+       ]
+      },
+      "type": "object",
+      "maxProperties": 60,
+      "title": "Answers"
+     }
+    },
+    "type": "object",
+    "required": [
+     "answers"
+    ],
+    "title": "AnswersIn"
+   },
+   "AppreciateIn": {
+    "properties": {
+     "category": {
+      "type": "string",
+      "maxLength": 20,
+      "title": "Category"
+     },
+     "message": {
+      "type": "string",
+      "maxLength": 300,
+      "title": "Message",
+      "default": ""
+     }
+    },
+    "type": "object",
+    "required": [
+     "category"
+    ],
+    "title": "AppreciateIn"
+   },
+   "AssessmentIn": {
+    "properties": {
+     "class_section_id": {
+      "type": "integer",
+      "title": "Class Section Id"
+     },
+     "subject_id": {
+      "type": "integer",
+      "title": "Subject Id"
+     },
+     "title": {
+      "type": "string",
+      "maxLength": 200,
+      "minLength": 3,
+      "title": "Title"
+     },
+     "topic": {
+      "type": "string",
+      "maxLength": 120,
+      "title": "Topic",
+      "default": ""
+     },
+     "kind": {
+      "type": "string",
+      "enum": [
+       "quiz",
+       "unit_test",
+       "baseline",
+       "offline"
+      ],
+      "title": "Kind",
+      "default": "quiz"
+     },
+     "questions": {
+      "items": {
+       "$ref": "#/components/schemas/app__routers__teacher__QuestionIn"
+      },
+      "type": "array",
+      "maxItems": 50,
+      "title": "Questions"
+     },
+     "max_score": {
+      "anyOf": [
+       {
+        "type": "number",
+        "maximum": 1000.0,
+        "exclusiveMinimum": 0.0
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Max Score"
+     },
+     "due_date": {
+      "anyOf": [
+       {
+        "type": "string",
+        "format": "date"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Due Date"
+     },
+     "publish": {
+      "type": "boolean",
+      "title": "Publish",
+      "default": false
+     },
+     "ai_assisted": {
+      "type": "boolean",
+      "title": "Ai Assisted",
+      "default": false
+     }
+    },
+    "type": "object",
+    "required": [
+     "class_section_id",
+     "subject_id",
+     "title"
+    ],
+    "title": "AssessmentIn"
+   },
+   "AssignmentIn": {
+    "properties": {
+     "class_section_id": {
+      "type": "integer",
+      "title": "Class Section Id"
+     },
+     "subject_id": {
+      "type": "integer",
+      "title": "Subject Id"
+     },
+     "title": {
+      "type": "string",
+      "maxLength": 200,
+      "minLength": 3,
+      "title": "Title"
+     },
+     "description": {
+      "type": "string",
+      "maxLength": 5000,
+      "title": "Description",
+      "default": ""
+     },
+     "kind": {
+      "type": "string",
+      "enum": [
+       "homework",
+       "worksheet",
+       "project"
+      ],
+      "title": "Kind",
+      "default": "homework"
+     },
+     "topic": {
+      "type": "string",
+      "maxLength": 120,
+      "title": "Topic",
+      "default": ""
+     },
+     "due_date": {
+      "anyOf": [
+       {
+        "type": "string",
+        "format": "date"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Due Date"
+     },
+     "ai_assisted": {
+      "type": "boolean",
+      "title": "Ai Assisted",
+      "default": false
+     }
+    },
+    "type": "object",
+    "required": [
+     "class_section_id",
+     "subject_id",
+     "title"
+    ],
+    "title": "AssignmentIn"
+   },
+   "AttendanceIn": {
+    "properties": {
+     "date": {
+      "type": "string",
+      "format": "date",
+      "title": "Date"
+     },
+     "records": {
+      "items": {
+       "$ref": "#/components/schemas/AttendanceItem"
+      },
+      "type": "array",
+      "maxItems": 200,
+      "title": "Records"
+     }
+    },
+    "type": "object",
+    "required": [
+     "date",
+     "records"
+    ],
+    "title": "AttendanceIn"
+   },
+   "AttendanceItem": {
+    "properties": {
+     "student": {
+      "type": "string",
+      "maxLength": 32,
+      "title": "Student"
+     },
+     "status": {
+      "type": "string",
+      "enum": [
+       "present",
+       "absent",
+       "late",
+       "leave"
+      ],
+      "title": "Status"
+     }
+    },
+    "type": "object",
+    "required": [
+     "student",
+     "status"
+    ],
+    "title": "AttendanceItem"
+   },
+   "Body_registry_import_api_admin_registry_import_post": {
+    "properties": {
+     "file": {
+      "type": "string",
+      "format": "binary",
+      "title": "File"
+     },
+     "source": {
+      "type": "string",
+      "maxLength": 60,
+      "minLength": 3,
+      "title": "Source"
+     },
+     "source_reference": {
+      "type": "string",
+      "maxLength": 200,
+      "minLength": 3,
+      "title": "Source Reference"
+     }
+    },
+    "type": "object",
+    "required": [
+     "file",
+     "source",
+     "source_reference"
+    ],
+    "title": "Body_registry_import_api_admin_registry_import_post"
+   },
+   "Body_transcribe_api_voice_transcribe_post": {
+    "properties": {
+     "audio": {
+      "type": "string",
+      "format": "binary",
+      "title": "Audio"
+     },
+     "language": {
+      "type": "string",
+      "enum": [
+       "hi",
+       "en"
+      ],
+      "title": "Language",
+      "default": "hi"
+     }
+    },
+    "type": "object",
+    "required": [
+     "audio"
+    ],
+    "title": "Body_transcribe_api_voice_transcribe_post"
+   },
+   "Body_upload_api_kb_documents_post": {
+    "properties": {
+     "file": {
+      "type": "string",
+      "format": "binary",
+      "title": "File"
+     },
+     "title": {
+      "type": "string",
+      "maxLength": 250,
+      "minLength": 3,
+      "title": "Title"
+     },
+     "doc_type": {
+      "type": "string",
+      "enum": [
+       "textbook",
+       "syllabus",
+       "lo_framework",
+       "lesson_material",
+       "question_paper",
+       "training"
+      ],
+      "title": "Doc Type",
+      "default": "textbook"
+     },
+     "subject": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Subject"
+     },
+     "grade": {
+      "anyOf": [
+       {
+        "type": "integer"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Grade"
+     },
+     "language": {
+      "type": "string",
+      "enum": [
+       "hi",
+       "en"
+      ],
+      "title": "Language",
+      "default": "hi"
+     },
+     "curriculum_version": {
+      "type": "string",
+      "minLength": 2,
+      "title": "Curriculum Version"
+     },
+     "publisher": {
+      "type": "string",
+      "minLength": 3,
+      "title": "Publisher"
+     },
+     "legacy_font": {
+      "type": "string",
+      "enum": [
+       "none",
+       "krutidev"
+      ],
+      "title": "Legacy Font",
+      "default": "none"
+     }
+    },
+    "type": "object",
+    "required": [
+     "file",
+     "title",
+     "curriculum_version",
+     "publisher"
+    ],
+    "title": "Body_upload_api_kb_documents_post"
+   },
+   "ChangePasswordIn": {
+    "properties": {
+     "current_password": {
+      "type": "string",
+      "maxLength": 256,
+      "title": "Current Password"
+     },
+     "new_password": {
+      "type": "string",
+      "maxLength": 256,
+      "title": "New Password"
+     }
+    },
+    "type": "object",
+    "required": [
+     "current_password",
+     "new_password"
+    ],
+    "title": "ChangePasswordIn"
+   },
+   "ClassIn": {
+    "properties": {
+     "grade": {
+      "type": "integer",
+      "maximum": 12.0,
+      "minimum": 1.0,
+      "title": "Grade"
+     },
+     "section": {
+      "type": "string",
+      "pattern": "^[A-Z]{1,2}$",
+      "title": "Section",
+      "default": "A"
+     },
+     "academic_year": {
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}$",
+      "title": "Academic Year"
+     }
+    },
+    "type": "object",
+    "required": [
+     "grade",
+     "academic_year"
+    ],
+    "title": "ClassIn"
+   },
+   "CompleteIn": {
+    "properties": {
+     "answers": {
+      "additionalProperties": {
+       "type": "integer"
+      },
+      "type": "object",
+      "maxProperties": 60,
+      "title": "Answers"
+     }
+    },
+    "type": "object",
+    "title": "CompleteIn"
+   },
+   "DoubtIn": {
+    "properties": {
+     "audience": {
+      "type": "string",
+      "enum": [
+       "teacher",
+       "class"
+      ],
+      "title": "Audience"
+     },
+     "subject_id": {
+      "anyOf": [
+       {
+        "type": "integer"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Subject Id"
+     },
+     "topic": {
+      "type": "string",
+      "maxLength": 120,
+      "title": "Topic",
+      "default": ""
+     },
+     "body": {
+      "type": "string",
+      "maxLength": 600,
+      "minLength": 5,
+      "title": "Body"
+     }
+    },
+    "type": "object",
+    "required": [
+     "audience",
+     "body"
+    ],
+    "title": "DoubtIn"
+   },
+   "DoubtStatus": {
+    "properties": {
+     "status": {
+      "type": "string",
+      "enum": [
+       "open",
+       "resolved",
+       "hidden"
+      ],
+      "title": "Status"
+     }
+    },
+    "type": "object",
+    "required": [
+     "status"
+    ],
+    "title": "DoubtStatus"
+   },
+   "EditPlanIn": {
+    "properties": {
+     "title": {
+      "type": "string",
+      "maxLength": 200,
+      "minLength": 3,
+      "title": "Title"
+     },
+     "body": {
+      "type": "string",
+      "maxLength": 20000,
+      "minLength": 10,
+      "title": "Body"
+     }
+    },
+    "type": "object",
+    "required": [
+     "title",
+     "body"
+    ],
+    "title": "EditPlanIn"
+   },
+   "EnrollIn": {
+    "properties": {
+     "full_name": {
+      "type": "string",
+      "maxLength": 150,
+      "minLength": 2,
+      "title": "Full Name"
+     },
+     "guardian_name": {
+      "type": "string",
+      "maxLength": 150,
+      "minLength": 2,
+      "title": "Guardian Name"
+     },
+     "guardian_phone": {
+      "anyOf": [
+       {
+        "type": "string",
+        "maxLength": 20
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Guardian Phone"
+     },
+     "guardian_consent": {
+      "type": "boolean",
+      "title": "Guardian Consent"
+     },
+     "birth_year": {
+      "anyOf": [
+       {
+        "type": "integer",
+        "maximum": 2025.0,
+        "minimum": 2000.0
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Birth Year"
+     },
+     "gender": {
+      "anyOf": [
+       {
+        "type": "string",
+        "enum": [
+         "female",
+         "male",
+         "other"
+        ]
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Gender"
+     },
+     "roll_no": {
+      "anyOf": [
+       {
+        "type": "integer",
+        "maximum": 999.0,
+        "minimum": 1.0
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Roll No"
+     }
+    },
+    "type": "object",
+    "required": [
+     "full_name",
+     "guardian_name",
+     "guardian_consent"
+    ],
+    "title": "EnrollIn"
+   },
+   "EventIn": {
+    "properties": {
+     "event_uid": {
+      "type": "string",
+      "maxLength": 64,
+      "minLength": 8,
+      "title": "Event Uid"
+     },
+     "type": {
+      "type": "string",
+      "maxLength": 30,
+      "title": "Type"
+     },
+     "created_at": {
+      "type": "string",
+      "maxLength": 40,
+      "title": "Created At"
+     },
+     "payload": {
+      "type": "object",
+      "title": "Payload"
+     }
+    },
+    "type": "object",
+    "required": [
+     "event_uid",
+     "type",
+     "created_at",
+     "payload"
+    ],
+    "title": "EventIn"
+   },
+   "FeedbackIn": {
+    "properties": {
+     "feedback": {
+      "type": "string",
+      "maxLength": 2000,
+      "minLength": 1,
+      "title": "Feedback"
+     }
+    },
+    "type": "object",
+    "required": [
+     "feedback"
+    ],
+    "title": "FeedbackIn"
+   },
+   "FromBankIn": {
+    "properties": {
+     "class_id": {
+      "type": "integer",
+      "title": "Class Id"
+     },
+     "subject_id": {
+      "type": "integer",
+      "title": "Subject Id"
+     },
+     "title": {
+      "type": "string",
+      "maxLength": 200,
+      "minLength": 3,
+      "title": "Title"
+     },
+     "kind": {
+      "type": "string",
+      "enum": [
+       "quiz",
+       "unit_test",
+       "quarterly",
+       "annual",
+       "baseline"
+      ],
+      "title": "Kind",
+      "default": "unit_test"
+     },
+     "learning_outcome_ids": {
+      "items": {
+       "type": "integer"
+      },
+      "type": "array",
+      "maxItems": 20,
+      "title": "Learning Outcome Ids"
+     },
+     "topic": {
+      "anyOf": [
+       {
+        "type": "string",
+        "maxLength": 120
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Topic"
+     },
+     "count": {
+      "type": "integer",
+      "maximum": 40.0,
+      "minimum": 1.0,
+      "title": "Count",
+      "default": 10
+     },
+     "difficulty": {
+      "anyOf": [
+       {
+        "type": "integer",
+        "maximum": 3.0,
+        "minimum": 1.0
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Difficulty"
+     },
+     "qtypes": {
+      "items": {
+       "type": "string",
+       "enum": [
+        "mcq",
+        "short",
+        "descriptive"
+       ]
+      },
+      "type": "array",
+      "title": "Qtypes"
+     },
+     "due_date": {
+      "anyOf": [
+       {
+        "type": "string",
+        "format": "date"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Due Date"
+     },
+     "publish": {
+      "type": "boolean",
+      "title": "Publish",
+      "default": false
+     }
+    },
+    "type": "object",
+    "required": [
+     "class_id",
+     "subject_id",
+     "title"
+    ],
+    "title": "FromBankIn"
+   },
+   "GenerateIn": {
+    "properties": {
+     "class_id": {
+      "type": "integer",
+      "title": "Class Id"
+     },
+     "subject_id": {
+      "type": "integer",
+      "title": "Subject Id"
+     },
+     "topic": {
+      "type": "string",
+      "maxLength": 120,
+      "minLength": 2,
+      "title": "Topic"
+     },
+     "learning_outcome_id": {
+      "anyOf": [
+       {
+        "type": "integer"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Learning Outcome Id"
+     },
+     "language": {
+      "type": "string",
+      "enum": [
+       "en",
+       "hi"
+      ],
+      "title": "Language",
+      "default": "hi"
+     },
+     "minutes": {
+      "type": "integer",
+      "maximum": 120.0,
+      "minimum": 10.0,
+      "title": "Minutes",
+      "default": 40
+     },
+     "notes": {
+      "type": "string",
+      "maxLength": 500,
+      "title": "Notes",
+      "default": ""
+     }
+    },
+    "type": "object",
+    "required": [
+     "class_id",
+     "subject_id",
+     "topic"
+    ],
+    "title": "GenerateIn"
+   },
+   "GoalIn": {
+    "properties": {
+     "kind": {
+      "type": "string",
+      "enum": [
+       "practice",
+       "lessons",
+       "chapters",
+       "revision",
+       "helping",
+       "custom"
+      ],
+      "title": "Kind"
+     },
+     "title": {
+      "type": "string",
+      "maxLength": 140,
+      "title": "Title",
+      "default": ""
+     },
+     "target": {
+      "type": "integer",
+      "maximum": 50.0,
+      "minimum": 1.0,
+      "title": "Target",
+      "default": 3
+     }
+    },
+    "type": "object",
+    "required": [
+     "kind"
+    ],
+    "title": "GoalIn"
+   },
+   "HTTPValidationError": {
+    "properties": {
+     "detail": {
+      "items": {
+       "$ref": "#/components/schemas/ValidationError"
+      },
+      "type": "array",
+      "title": "Detail"
+     }
+    },
+    "type": "object",
+    "title": "HTTPValidationError"
+   },
+   "LanguageIn": {
+    "properties": {
+     "language": {
+      "type": "string",
+      "pattern": "^(en|hi)$",
+      "title": "Language"
+     }
+    },
+    "type": "object",
+    "required": [
+     "language"
+    ],
+    "title": "LanguageIn"
+   },
+   "LoginIn": {
+    "properties": {
+     "login_id": {
+      "type": "string",
+      "maxLength": 120,
+      "minLength": 1,
+      "title": "Login Id"
+     },
+     "password": {
+      "type": "string",
+      "maxLength": 256,
+      "minLength": 1,
+      "title": "Password"
+     },
+     "otp": {
+      "anyOf": [
+       {
+        "type": "string",
+        "maxLength": 10
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Otp"
+     }
+    },
+    "type": "object",
+    "required": [
+     "login_id",
+     "password"
+    ],
+    "title": "LoginIn"
+   },
+   "OtpIn": {
+    "properties": {
+     "code": {
+      "type": "string",
+      "maxLength": 10,
+      "title": "Code"
+     }
+    },
+    "type": "object",
+    "required": [
+     "code"
+    ],
+    "title": "OtpIn"
+   },
+   "PairIn": {
+    "properties": {
+     "helper": {
+      "type": "string",
+      "maxLength": 64,
+      "minLength": 8,
+      "title": "Helper"
+     },
+     "learner": {
+      "type": "string",
+      "maxLength": 64,
+      "minLength": 8,
+      "title": "Learner"
+     },
+     "topic": {
+      "type": "string",
+      "maxLength": 120,
+      "minLength": 2,
+      "title": "Topic"
+     },
+     "subject_id": {
+      "anyOf": [
+       {
+        "type": "integer"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Subject Id"
+     },
+     "note": {
+      "type": "string",
+      "maxLength": 300,
+      "title": "Note",
+      "default": ""
+     }
+    },
+    "type": "object",
+    "required": [
+     "helper",
+     "learner",
+     "topic"
+    ],
+    "title": "PairIn"
+   },
+   "PracticeIn": {
+    "properties": {
+     "answers": {
+      "additionalProperties": {
+       "anyOf": [
+        {
+         "type": "integer"
+        },
+        {
+         "type": "string"
+        }
+       ]
+      },
+      "type": "object",
+      "maxProperties": 20,
+      "title": "Answers"
+     }
+    },
+    "type": "object",
+    "required": [
+     "answers"
+    ],
+    "title": "PracticeIn"
+   },
+   "PushIn": {
+    "properties": {
+     "device_uid": {
+      "type": "string",
+      "maxLength": 64,
+      "minLength": 8,
+      "title": "Device Uid"
+     },
+     "profile": {
+      "type": "string",
+      "enum": [
+       "browser",
+       "school_pc",
+       "smart_class",
+       "android"
+      ],
+      "title": "Profile",
+      "default": "browser"
+     },
+     "app_version": {
+      "anyOf": [
+       {
+        "type": "string",
+        "maxLength": 30
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "App Version"
+     },
+     "events": {
+      "items": {
+       "$ref": "#/components/schemas/EventIn"
+      },
+      "type": "array",
+      "maxItems": 200,
+      "title": "Events"
+     }
+    },
+    "type": "object",
+    "required": [
+     "device_uid",
+     "events"
+    ],
+    "title": "PushIn"
+   },
+   "ReadIn": {
+    "properties": {
+     "key": {
+      "type": "string",
+      "maxLength": 250,
+      "minLength": 3,
+      "title": "Key"
+     }
+    },
+    "type": "object",
+    "required": [
+     "key"
+    ],
+    "title": "ReadIn"
+   },
+   "RefreshIn": {
+    "properties": {
+     "class_id": {
+      "type": "integer",
+      "title": "Class Id"
+     }
+    },
+    "type": "object",
+    "required": [
+     "class_id"
+    ],
+    "title": "RefreshIn"
+   },
+   "RegisterSchoolIn": {
+    "properties": {
+     "official_code": {
+      "type": "string",
+      "maxLength": 20,
+      "title": "Official Code"
+     },
+     "medium": {
+      "type": "string",
+      "maxLength": 30,
+      "title": "Medium",
+      "default": "Hindi"
+     },
+     "lowest_class": {
+      "type": "integer",
+      "maximum": 12.0,
+      "minimum": 1.0,
+      "title": "Lowest Class",
+      "default": 1
+     },
+     "highest_class": {
+      "type": "integer",
+      "maximum": 12.0,
+      "minimum": 1.0,
+      "title": "Highest Class",
+      "default": 8
+     },
+     "locality_type": {
+      "type": "string",
+      "enum": [
+       "rural",
+       "urban"
+      ],
+      "title": "Locality Type",
+      "default": "rural"
+     }
+    },
+    "type": "object",
+    "required": [
+     "official_code"
+    ],
+    "title": "RegisterSchoolIn"
+   },
+   "RemStatusIn": {
+    "properties": {
+     "status": {
+      "type": "string",
+      "enum": [
+       "approved",
+       "completed",
+       "dismissed"
+      ],
+      "title": "Status"
+     },
+     "plan_text": {
+      "anyOf": [
+       {
+        "type": "string",
+        "maxLength": 20000
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Plan Text"
+     }
+    },
+    "type": "object",
+    "required": [
+     "status"
+    ],
+    "title": "RemStatusIn"
+   },
+   "ReplyIn": {
+    "properties": {
+     "body": {
+      "type": "string",
+      "maxLength": 800,
+      "minLength": 2,
+      "title": "Body"
+     }
+    },
+    "type": "object",
+    "required": [
+     "body"
+    ],
+    "title": "ReplyIn"
+   },
+   "ReportIn": {
+    "properties": {
+     "period": {
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}$",
+      "title": "Period"
+     },
+     "title": {
+      "type": "string",
+      "maxLength": 200,
+      "minLength": 3,
+      "title": "Title"
+     },
+     "body": {
+      "type": "string",
+      "maxLength": 10000,
+      "minLength": 10,
+      "title": "Body"
+     }
+    },
+    "type": "object",
+    "required": [
+     "period",
+     "title",
+     "body"
+    ],
+    "title": "ReportIn"
+   },
+   "ResetConfirmIn": {
+    "properties": {
+     "token": {
+      "type": "string",
+      "maxLength": 128,
+      "title": "Token"
+     },
+     "new_password": {
+      "type": "string",
+      "maxLength": 256,
+      "title": "New Password"
+     }
+    },
+    "type": "object",
+    "required": [
+     "token",
+     "new_password"
+    ],
+    "title": "ResetConfirmIn"
+   },
+   "ResetRequestIn": {
+    "properties": {
+     "login_id": {
+      "type": "string",
+      "maxLength": 120,
+      "title": "Login Id"
+     }
+    },
+    "type": "object",
+    "required": [
+     "login_id"
+    ],
+    "title": "ResetRequestIn"
+   },
+   "ResourceIn": {
+    "properties": {
+     "kind": {
+      "type": "string",
+      "enum": [
+       "ict_lab",
+       "smart_class",
+       "digital_library",
+       "language_lab",
+       "tablets"
+      ],
+      "title": "Kind"
+     },
+     "label": {
+      "type": "string",
+      "maxLength": 120,
+      "minLength": 2,
+      "title": "Label"
+     },
+     "devices": {
+      "type": "integer",
+      "maximum": 500.0,
+      "minimum": 1.0,
+      "title": "Devices",
+      "default": 1
+     },
+     "target_sessions_per_week": {
+      "type": "integer",
+      "maximum": 60.0,
+      "minimum": 1.0,
+      "title": "Target Sessions Per Week",
+      "default": 10
+     },
+     "installed_year": {
+      "anyOf": [
+       {
+        "type": "integer",
+        "maximum": 2030.0,
+        "minimum": 2000.0
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Installed Year"
+     }
+    },
+    "type": "object",
+    "required": [
+     "kind",
+     "label"
+    ],
+    "title": "ResourceIn"
+   },
+   "ResourceStatusIn": {
+    "properties": {
+     "status": {
+      "type": "string",
+      "enum": [
+       "working",
+       "not_working"
+      ],
+      "title": "Status"
+     },
+     "note": {
+      "type": "string",
+      "maxLength": 300,
+      "title": "Note",
+      "default": ""
+     }
+    },
+    "type": "object",
+    "required": [
+     "status"
+    ],
+    "title": "ResourceStatusIn"
+   },
+   "RevisionAnswer": {
+    "properties": {
+     "choice": {
+      "type": "integer",
+      "maximum": 10.0,
+      "minimum": 0.0,
+      "title": "Choice"
+     }
+    },
+    "type": "object",
+    "required": [
+     "choice"
+    ],
+    "title": "RevisionAnswer"
+   },
+   "SchoolStatusIn": {
+    "properties": {
+     "status": {
+      "type": "string",
+      "enum": [
+       "active",
+       "suspended",
+       "closed"
+      ],
+      "title": "Status"
+     },
+     "reason": {
+      "type": "string",
+      "maxLength": 500,
+      "minLength": 3,
+      "title": "Reason"
+     }
+    },
+    "type": "object",
+    "required": [
+     "status",
+     "reason"
+    ],
+    "title": "SchoolStatusIn"
+   },
+   "ScoreItem": {
+    "properties": {
+     "student": {
+      "type": "string",
+      "maxLength": 32,
+      "title": "Student"
+     },
+     "score": {
+      "type": "number",
+      "minimum": 0.0,
+      "title": "Score"
+     }
+    },
+    "type": "object",
+    "required": [
+     "student",
+     "score"
+    ],
+    "title": "ScoreItem"
+   },
+   "ScoresIn": {
+    "properties": {
+     "scores": {
+      "items": {
+       "$ref": "#/components/schemas/ScoreItem"
+      },
+      "type": "array",
+      "maxItems": 200,
+      "title": "Scores"
+     }
+    },
+    "type": "object",
+    "required": [
+     "scores"
+    ],
+    "title": "ScoresIn"
+   },
+   "SubmitIn": {
+    "properties": {
+     "content": {
+      "type": "string",
+      "maxLength": 5000,
+      "minLength": 1,
+      "title": "Content"
+     }
+    },
+    "type": "object",
+    "required": [
+     "content"
+    ],
+    "title": "SubmitIn"
+   },
+   "SubstituteIn": {
+    "properties": {
+     "class_id": {
+      "type": "integer",
+      "title": "Class Id"
+     },
+     "lesson_plan_id": {
+      "type": "integer",
+      "title": "Lesson Plan Id"
+     },
+     "notes": {
+      "type": "string",
+      "maxLength": 500,
+      "title": "Notes",
+      "default": ""
+     },
+     "digital_resource_id": {
+      "anyOf": [
+       {
+        "type": "integer"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Digital Resource Id"
+     }
+    },
+    "type": "object",
+    "required": [
+     "class_id",
+     "lesson_plan_id"
+    ],
+    "title": "SubstituteIn"
+   },
+   "TaughtIn": {
+    "properties": {
+     "lesson_plan_id": {
+      "anyOf": [
+       {
+        "type": "integer"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Lesson Plan Id"
+     },
+     "digital_resource_id": {
+      "anyOf": [
+       {
+        "type": "integer"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Digital Resource Id"
+     }
+    },
+    "type": "object",
+    "title": "TaughtIn"
+   },
+   "TeachAssignIn": {
+    "properties": {
+     "class_section_id": {
+      "type": "integer",
+      "title": "Class Section Id"
+     },
+     "subject_id": {
+      "type": "integer",
+      "title": "Subject Id"
+     },
+     "is_class_teacher": {
+      "type": "boolean",
+      "title": "Is Class Teacher",
+      "default": false
+     }
+    },
+    "type": "object",
+    "required": [
+     "class_section_id",
+     "subject_id"
+    ],
+    "title": "TeachAssignIn"
+   },
+   "TeacherAttIn": {
+    "properties": {
+     "date": {
+      "type": "string",
+      "format": "date",
+      "title": "Date"
+     },
+     "records": {
+      "items": {
+       "$ref": "#/components/schemas/TeacherAttItem"
+      },
+      "type": "array",
+      "maxItems": 100,
+      "title": "Records"
+     }
+    },
+    "type": "object",
+    "required": [
+     "date",
+     "records"
+    ],
+    "title": "TeacherAttIn"
+   },
+   "TeacherAttItem": {
+    "properties": {
+     "teacher": {
+      "type": "string",
+      "maxLength": 32,
+      "title": "Teacher"
+     },
+     "status": {
+      "type": "string",
+      "enum": [
+       "present",
+       "absent",
+       "late",
+       "leave"
+      ],
+      "title": "Status"
+     }
+    },
+    "type": "object",
+    "required": [
+     "teacher",
+     "status"
+    ],
+    "title": "TeacherAttItem"
+   },
+   "TeacherInviteIn": {
+    "properties": {
+     "employee_id": {
+      "type": "string",
+      "maxLength": 40,
+      "minLength": 3,
+      "title": "Employee Id"
+     },
+     "full_name": {
+      "type": "string",
+      "maxLength": 150,
+      "minLength": 2,
+      "title": "Full Name"
+     },
+     "designation": {
+      "type": "string",
+      "maxLength": 80,
+      "title": "Designation",
+      "default": "Teacher"
+     },
+     "email": {
+      "anyOf": [
+       {
+        "type": "string",
+        "maxLength": 200
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Email"
+     },
+     "phone": {
+      "anyOf": [
+       {
+        "type": "string",
+        "maxLength": 20
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Phone"
+     },
+     "is_head_teacher": {
+      "type": "boolean",
+      "title": "Is Head Teacher",
+      "default": false
+     }
+    },
+    "type": "object",
+    "required": [
+     "employee_id",
+     "full_name"
+    ],
+    "title": "TeacherInviteIn"
+   },
+   "TrainingIn": {
+    "properties": {
+     "answers": {
+      "items": {
+       "type": "integer"
+      },
+      "type": "array",
+      "maxItems": 20,
+      "title": "Answers"
+     }
+    },
+    "type": "object",
+    "title": "TrainingIn"
+   },
+   "TransferIn": {
+    "properties": {
+     "school_id": {
+      "type": "integer",
+      "title": "School Id"
+     },
+     "reason": {
+      "type": "string",
+      "maxLength": 500,
+      "minLength": 3,
+      "title": "Reason"
+     }
+    },
+    "type": "object",
+    "required": [
+     "school_id",
+     "reason"
+    ],
+    "title": "TransferIn"
+   },
+   "UsageIn": {
+    "properties": {
+     "resource_id": {
+      "type": "integer",
+      "title": "Resource Id"
+     },
+     "class_id": {
+      "type": "integer",
+      "title": "Class Id"
+     },
+     "subject_id": {
+      "type": "integer",
+      "title": "Subject Id"
+     },
+     "learning_outcome_id": {
+      "anyOf": [
+       {
+        "type": "integer"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Learning Outcome Id"
+     },
+     "minutes": {
+      "type": "integer",
+      "maximum": 240.0,
+      "minimum": 5.0,
+      "title": "Minutes",
+      "default": 35
+     },
+     "activity": {
+      "type": "string",
+      "maxLength": 200,
+      "title": "Activity",
+      "default": ""
+     },
+     "used_on": {
+      "anyOf": [
+       {
+        "type": "string",
+        "format": "date"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Used On"
+     }
+    },
+    "type": "object",
+    "required": [
+     "resource_id",
+     "class_id",
+     "subject_id"
+    ],
+    "title": "UsageIn"
+   },
+   "ValidationError": {
+    "properties": {
+     "loc": {
+      "items": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "integer"
+        }
+       ]
+      },
+      "type": "array",
+      "title": "Location"
+     },
+     "msg": {
+      "type": "string",
+      "title": "Message"
+     },
+     "type": {
+      "type": "string",
+      "title": "Error Type"
+     }
+    },
+    "type": "object",
+    "required": [
+     "loc",
+     "msg",
+     "type"
+    ],
+    "title": "ValidationError"
+   },
+   "VerifyIn": {
+    "properties": {
+     "approve": {
+      "type": "boolean",
+      "title": "Approve"
+     },
+     "note": {
+      "type": "string",
+      "maxLength": 500,
+      "title": "Note",
+      "default": ""
+     }
+    },
+    "type": "object",
+    "required": [
+     "approve"
+    ],
+    "title": "VerifyIn"
+   },
+   "WorksheetIn": {
+    "properties": {
+     "subject_id": {
+      "type": "integer",
+      "title": "Subject Id"
+     },
+     "grade": {
+      "type": "integer",
+      "maximum": 12.0,
+      "minimum": 1.0,
+      "title": "Grade"
+     },
+     "topic": {
+      "type": "string",
+      "maxLength": 120,
+      "minLength": 2,
+      "title": "Topic"
+     },
+     "learning_outcome_id": {
+      "anyOf": [
+       {
+        "type": "integer"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Learning Outcome Id"
+     },
+     "language": {
+      "type": "string",
+      "enum": [
+       "en",
+       "hi"
+      ],
+      "title": "Language",
+      "default": "hi"
+     },
+     "count": {
+      "type": "integer",
+      "maximum": 10.0,
+      "minimum": 1.0,
+      "title": "Count",
+      "default": 5
+     }
+    },
+    "type": "object",
+    "required": [
+     "subject_id",
+     "grade",
+     "topic"
+    ],
+    "title": "WorksheetIn"
+   },
+   "app__routers__admin__ReviewIn": {
+    "properties": {
+     "decision": {
+      "type": "string",
+      "enum": [
+       "approve",
+       "dismiss"
+      ],
+      "title": "Decision"
+     },
+     "note": {
+      "type": "string",
+      "maxLength": 1000,
+      "title": "Note",
+      "default": ""
+     }
+    },
+    "type": "object",
+    "required": [
+     "decision"
+    ],
+    "title": "ReviewIn"
+   },
+   "app__routers__pariksha__QuestionIn": {
+    "properties": {
+     "subject_id": {
+      "type": "integer",
+      "title": "Subject Id"
+     },
+     "grade": {
+      "type": "integer",
+      "maximum": 12.0,
+      "minimum": 1.0,
+      "title": "Grade"
+     },
+     "topic": {
+      "type": "string",
+      "maxLength": 120,
+      "minLength": 2,
+      "title": "Topic"
+     },
+     "learning_outcome_id": {
+      "anyOf": [
+       {
+        "type": "integer"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Learning Outcome Id"
+     },
+     "qtype": {
+      "type": "string",
+      "enum": [
+       "mcq",
+       "short",
+       "descriptive"
+      ],
+      "title": "Qtype"
+     },
+     "text": {
+      "type": "string",
+      "maxLength": 1000,
+      "minLength": 3,
+      "title": "Text"
+     },
+     "options": {
+      "items": {
+       "type": "string"
+      },
+      "type": "array",
+      "maxItems": 6,
+      "title": "Options"
+     },
+     "correct_option": {
+      "anyOf": [
+       {
+        "type": "integer"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Correct Option"
+     },
+     "accepted_answers": {
+      "items": {
+       "type": "string"
+      },
+      "type": "array",
+      "maxItems": 10,
+      "title": "Accepted Answers"
+     },
+     "rubric": {
+      "anyOf": [
+       {
+        "type": "string",
+        "maxLength": 2000
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Rubric"
+     },
+     "max_marks": {
+      "type": "number",
+      "maximum": 20.0,
+      "exclusiveMinimum": 0.0,
+      "title": "Max Marks",
+      "default": 1
+     },
+     "difficulty": {
+      "type": "integer",
+      "maximum": 3.0,
+      "minimum": 1.0,
+      "title": "Difficulty",
+      "default": 2
+     },
+     "language": {
+      "type": "string",
+      "enum": [
+       "en",
+       "hi"
+      ],
+      "title": "Language",
+      "default": "en"
+     },
+     "misconceptions": {
+      "additionalProperties": {
+       "type": "string"
+      },
+      "type": "object",
+      "title": "Misconceptions"
+     }
+    },
+    "type": "object",
+    "required": [
+     "subject_id",
+     "grade",
+     "topic",
+     "qtype",
+     "text"
+    ],
+    "title": "QuestionIn"
+   },
+   "app__routers__pariksha__ReviewIn": {
+    "properties": {
+     "marks": {
+      "additionalProperties": {
+       "type": "number"
+      },
+      "type": "object",
+      "title": "Marks"
+     }
+    },
+    "type": "object",
+    "required": [
+     "marks"
+    ],
+    "title": "ReviewIn"
+   },
+   "app__routers__saathi__AskIn": {
+    "properties": {
+     "question": {
+      "type": "string",
+      "maxLength": 600,
+      "minLength": 3,
+      "title": "Question"
+     },
+     "subject_id": {
+      "anyOf": [
+       {
+        "type": "integer"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Subject Id"
+     },
+     "grade": {
+      "anyOf": [
+       {
+        "type": "integer",
+        "maximum": 12.0,
+        "minimum": 1.0
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Grade"
+     },
+     "language": {
+      "type": "string",
+      "enum": [
+       "en",
+       "hi"
+      ],
+      "title": "Language",
+      "default": "en"
+     }
+    },
+    "type": "object",
+    "required": [
+     "question"
+    ],
+    "title": "AskIn"
+   },
+   "app__routers__student__AskIn": {
+    "properties": {
+     "question": {
+      "type": "string",
+      "maxLength": 500,
+      "minLength": 2,
+      "title": "Question"
+     },
+     "subject_id": {
+      "anyOf": [
+       {
+        "type": "integer"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Subject Id"
+     },
+     "language": {
+      "type": "string",
+      "enum": [
+       "en",
+       "hi"
+      ],
+      "title": "Language",
+      "default": "en"
+     }
+    },
+    "type": "object",
+    "required": [
+     "question"
+    ],
+    "title": "AskIn"
+   },
+   "app__routers__teacher__QuestionIn": {
+    "properties": {
+     "text": {
+      "type": "string",
+      "maxLength": 500,
+      "minLength": 1,
+      "title": "Text"
+     },
+     "options": {
+      "items": {
+       "type": "string"
+      },
+      "type": "array",
+      "maxItems": 6,
+      "minItems": 2,
+      "title": "Options"
+     },
+     "answer_index": {
+      "type": "integer",
+      "maximum": 5.0,
+      "minimum": 0.0,
+      "title": "Answer Index"
+     },
+     "topic": {
+      "type": "string",
+      "maxLength": 120,
+      "title": "Topic",
+      "default": ""
+     }
+    },
+    "type": "object",
+    "required": [
+     "text",
+     "options",
+     "answer_index"
+    ],
+    "title": "QuestionIn"
+   },
+   "app__routers__teacher__ReviewIn": {
+    "properties": {
+     "decision": {
+      "type": "string",
+      "enum": [
+       "approve",
+       "dismiss"
+      ],
+      "title": "Decision"
+     },
+     "note": {
+      "type": "string",
+      "maxLength": 1000,
+      "title": "Note",
+      "default": ""
+     }
+    },
+    "type": "object",
+    "required": [
+     "decision"
+    ],
+    "title": "ReviewIn"
+   }
+  }
+ }
+}
