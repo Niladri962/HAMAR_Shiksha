@@ -1,56 +1,59 @@
 """Vercel entry point (serverless demo deployment).
 
 Vercel runs this file as a Python function; every request is rewritten here
-(see vercel.json). Two database modes:
+(see vercel.json). Start-up defaults live in app/serverless.py. Database:
 
-1. HS_DATABASE_URL is set (recommended): a hosted PostgreSQL database, e.g.
-   Neon from the Vercel Marketplace. Seed it once from your own machine:
-       HS_DATABASE_URL=postgresql+psycopg://... python -m app.cli seed-demo
-2. HS_DATABASE_URL is not set: the bundled compact demo database
-   (deploy/demo.db.gz) is copied to /tmp on each cold start. Changes are lost
-   when the instance stops, and separate instances do not share sessions, so
-   use this only for a quick look.
+1. HS_DATABASE_URL / DATABASE_URL set (recommended): hosted PostgreSQL, e.g.
+   Neon from the Vercel Marketplace, seeded once from your own machine.
+2. Not set: the bundled compact demo database (deploy/demo.db.gz) is unpacked
+   to /tmp on each cold start (changes are lost; instances do not share
+   sessions). Fine for a quick look.
 
-The Gyan SLM is a local model (Ollama) and does not run on Vercel. Unless
-HS_SLM_URL points to an Ollama server you operate, the AI features fall back
-to showing the matching textbook passages (clearly labelled, not AI).
+If start-up fails, every request answers with the reason (secrets redacted)
+instead of an opaque FUNCTION_INVOCATION_FAILED. See docs/DEPLOY_VERCEL.md.
 """
 from __future__ import annotations
 
-import gzip
-import os
-import shutil
 import sys
-import tempfile
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parent.parent
-TMP = Path(tempfile.gettempdir())  # /tmp on Vercel: the only writable directory
-sys.path.insert(0, str(ROOT))
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-# Safe serverless defaults; any value set in the Vercel project settings wins.
-os.environ.setdefault("HS_ENVIRONMENT", "demo")
-os.environ.setdefault("HS_COOKIE_SECURE", "true")
-os.environ.setdefault("HS_KB_DIR", str(TMP / "hs-kb"))
-os.environ.setdefault("HS_EMBEDDING_MODEL", "")    # keyword retrieval; no model download
-os.environ.setdefault("HS_STT_MODEL", "")          # Whisper is too large for a serverless function
-os.environ.setdefault("HS_SLM_RUNTIME", "ollama" if os.environ.get("HS_SLM_URL") else "none")
 
-# Vercel's Neon / Postgres integration sets DATABASE_URL or POSTGRES_URL as postgres://...
-_pg = os.environ.get("HS_DATABASE_URL") or os.environ.get("DATABASE_URL") or os.environ.get("POSTGRES_URL")
-if _pg and _pg.startswith(("postgres://", "postgresql://")):
-    os.environ["HS_DATABASE_URL"] = "postgresql+psycopg://" + _pg.split("://", 1)[1]
+def _failure_app(text: str):
+    import re
 
-if not os.environ.get("HS_DATABASE_URL"):
-    db_path = TMP / "hamar_shiksha_demo.db"
-    if not db_path.exists():
-        with gzip.open(ROOT / "deploy" / "demo.db.gz", "rb") as src, open(db_path, "wb") as dst:
-            shutil.copyfileobj(src, dst)
-    os.environ["HS_DATABASE_URL"] = f"sqlite:///{db_path.as_posix()}"
+    body = re.sub(r"://[^/\s:@]+:[^@\s]+@", "://***:***@", text)
+    body = ("HAMAR SHIKSHA could not start on this deployment.\n"
+            "See docs/DEPLOY_VERCEL.md (Troubleshooting).\n\n" + body).encode()
 
-os.chdir(TMP)  # writable; a developer .env in the project folder is not read here
+    async def failed(scope, receive, send):
+        if scope["type"] == "lifespan":
+            while True:
+                msg = await receive()
+                if msg["type"] == "lifespan.startup":
+                    await send({"type": "lifespan.startup.complete"})
+                else:
+                    await send({"type": "lifespan.shutdown.complete"})
+                    return
+        await send({"type": "http.response.start", "status": 503,
+                    "headers": [(b"content-type", b"text/plain; charset=utf-8")]})
+        await send({"type": "http.response.body", "body": body})
+    return failed
 
-from app import database  # noqa: E402
-from app.main import app  # noqa: E402,F401  (Vercel looks for `app`)
 
-database.init_db()  # migrations + reference data; idempotent (lifespan may not run on every platform)
+try:
+    from app import serverless
+
+    serverless.prepare()
+    from app import database
+    from app.main import app as _app
+
+    database.init_db()  # migrations + reference data; idempotent (lifespan may not run on every platform)
+    app = _app
+except Exception:  # noqa: BLE001 - shown in the browser and the function log
+    import traceback
+
+    _trace = traceback.format_exc()
+    print(_trace, file=sys.stderr)
+    app = _failure_app(_trace)

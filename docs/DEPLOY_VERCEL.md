@@ -68,3 +68,14 @@ as "stale". Rebuild before a demonstration and push:
 ```bash
 python scripts/build_vercel_demo_db.py
 ```
+
+## Troubleshooting
+
+- **"This page is unavailable / 500 FUNCTION_INVOCATION_FAILED"**: redeploy the latest commit.
+  Start-up problems are now shown on the page itself (HTTP 503 with the reason, passwords redacted)
+  and in Vercel → Project → **Logs**. Send that text to the developer.
+- The serverless set-up (`app/serverless.py`) runs whether Vercel starts `api/index.py` or detects
+  FastAPI in `app/main.py`, so both entry points use `/tmp` for the demo database.
+- Python is pinned to 3.12 (`.python-version`).
+- Do **not** set `HS_ENVIRONMENT=production` on Vercel with the bundled demo database: production mode
+  refuses demo data and SQLite by design.

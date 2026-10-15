@@ -2,8 +2,14 @@
 from __future__ import annotations
 
 import logging
+import os
 from contextlib import asynccontextmanager
 from pathlib import Path
+
+if os.environ.get("VERCEL"):  # serverless: set defaults before settings/database are first read
+    from app import serverless
+
+    serverless.prepare()
 
 from fastapi import FastAPI, Request
 from fastapi.middleware.gzip import GZipMiddleware
