@@ -42,6 +42,25 @@ def _failure_app(text: str):
     return failed
 
 
+def _restore_path(inner):
+    """vercel.json rewrites every request to /api/index?__path=/<original path>.
+    Put the original path back so FastAPI routes it; other query parameters are kept."""
+    from urllib.parse import parse_qsl, urlencode
+
+    async def wrapped(scope, receive, send):
+        if scope["type"] in ("http", "websocket"):
+            pairs = parse_qsl(scope.get("query_string", b"").decode("latin-1"), keep_blank_values=True)
+            orig = next((v for k, v in pairs if k == "__path"), None)
+            if orig is not None:
+                path = "/" + orig.lstrip("/")
+                rest = urlencode([(k, v) for k, v in pairs if k != "__path"])
+                scope = {**scope, "path": path, "raw_path": path.encode(), "query_string": rest.encode()}
+            elif scope.get("path", "").rstrip("/") == "/api/index":
+                scope = {**scope, "path": "/", "raw_path": b"/"}
+        await inner(scope, receive, send)
+    return wrapped
+
+
 try:
     from app import serverless
 
@@ -50,7 +69,7 @@ try:
     from app.main import app as _app
 
     database.init_db()  # migrations + reference data; idempotent (lifespan may not run on every platform)
-    app = _app
+    app = _restore_path(_app)
 except Exception:  # noqa: BLE001 - shown in the browser and the function log
     import traceback
 
