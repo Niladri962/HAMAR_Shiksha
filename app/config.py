@@ -23,6 +23,9 @@ class Settings(BaseSettings):
     # Sessions
     session_ttl_minutes: int = 8 * 60
     admin_session_ttl_minutes: int = 60
+    # Serverless demo without a shared database (each instance has its own copy):
+    # a signed ticket cookie lets any instance restore the session. Off by default.
+    portable_sessions: bool = False
     cookie_secure: bool = False
 
     # Brute-force protection

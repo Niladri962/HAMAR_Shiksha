@@ -30,6 +30,7 @@ from app.security import token_digest
 
 SESSION_COOKIE = "hs_session"
 CSRF_COOKIE = "hs_csrf"
+TICKET_COOKIE = "hs_ticket"  # portable sessions only (serverless demo)
 CSRF_HEADER = "X-CSRF-Token"
 SAFE_METHODS = {"GET", "HEAD", "OPTIONS"}
 
@@ -67,12 +68,39 @@ def _unauthenticated() -> HTTPException:
     return HTTPException(status.HTTP_401_UNAUTHORIZED, "Not signed in")
 
 
+def _restore_portable_session(request: Request, db: Session, token: str, now) -> AuthSession | None:
+    """Serverless demo: this instance has never seen the session (another instance
+    created it). Re-create it from the signed ticket cookie, if valid and unexpired."""
+    import time as _time
+
+    from app.config import get_settings
+    from app.security import read_ticket
+
+    s = get_settings()
+    if not s.portable_sessions:
+        return None
+    t = read_ticket(request.cookies.get(TICKET_COOKIE, ""), s.secret_key)
+    if not t or t.get("h") != token_digest(token) or int(t.get("e", 0)) <= _time.time():
+        return None
+    sess = AuthSession(token_hash=t["h"], csrf_token=t["c"], user_id=int(t["u"]), portal=t["p"],
+                       expires_at=now + timedelta(seconds=int(t["e"]) - int(_time.time())), last_seen_at=now)
+    db.add(sess)
+    try:
+        db.commit()
+    except Exception:  # noqa: BLE001 - a parallel request restored it first
+        db.rollback()
+        sess = db.scalar(select(AuthSession).where(AuthSession.token_hash == t["h"]))
+    return sess
+
+
 def get_principal(request: Request, db: Session = Depends(get_db)) -> Principal:
     token = request.cookies.get(SESSION_COOKIE)
     if not token:
         raise _unauthenticated()
     sess = db.scalar(select(AuthSession).where(AuthSession.token_hash == token_digest(token)))
     now = utcnow()
+    if sess is None:
+        sess = _restore_portable_session(request, db, token, now)
     if sess is None or sess.revoked or sess.expires_at <= now:
         raise _unauthenticated()
     user = db.get(User, sess.user_id)

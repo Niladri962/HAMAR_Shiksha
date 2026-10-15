@@ -35,6 +35,11 @@ def prepare() -> None:
     if pg and pg.startswith(("postgres://", "postgresql://")):
         os.environ["HS_DATABASE_URL"] = "postgresql+psycopg://" + pg.split("://", 1)[1]
     if not os.environ.get("HS_DATABASE_URL"):
+        # Each instance unpacks its own copy, so sessions must survive moving between
+        # instances (signed ticket cookie) and should last until the user signs out.
+        os.environ.setdefault("HS_PORTABLE_SESSIONS", "true")
+        os.environ.setdefault("HS_SESSION_TTL_MINUTES", str(7 * 24 * 60))
+        os.environ.setdefault("HS_ADMIN_SESSION_TTL_MINUTES", str(7 * 24 * 60))
         db_path = TMP / "hamar_shiksha_demo.db"
         if not db_path.exists():
             part = TMP / f"hamar_shiksha_demo.{os.getpid()}.part"

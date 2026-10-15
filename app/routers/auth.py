@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import logging
+import time
 from datetime import timedelta
 
 from fastapi import APIRouter, Depends, HTTPException, Request, Response, status
@@ -15,6 +16,7 @@ from app.database import get_db
 from app.deps import (
     CSRF_COOKIE,
     SESSION_COOKIE,
+    TICKET_COOKIE,
     Principal,
     active_assignment_for_portal,
     get_principal,
@@ -39,6 +41,7 @@ from app.security import (
     new_totp_secret,
     normalise_login_id,
     password_problems,
+    sign_ticket,
     token_digest,
     totp_uri,
     verify_password,
@@ -84,12 +87,19 @@ def _fail(db: Session, request: Request, portal: str, login_id: str, user: User 
     raise HTTPException(http_status, message)
 
 
-def _set_session_cookies(response: Response, token: str, csrf: str, max_age: int) -> None:
-    secure = get_settings().cookie_secure
+def _set_session_cookies(response: Response, token: str, csrf: str, max_age: int, *,
+                         user_id: int | None = None, portal: str | None = None) -> None:
+    s = get_settings()
+    secure = s.cookie_secure
     response.set_cookie(SESSION_COOKIE, token, max_age=max_age, httponly=True, secure=secure,
                         samesite="strict", path="/")
     response.set_cookie(CSRF_COOKIE, csrf, max_age=max_age, httponly=False, secure=secure,
                         samesite="strict", path="/")
+    if s.portable_sessions and user_id is not None:
+        ticket = sign_ticket({"h": token_digest(token), "u": user_id, "p": portal, "c": csrf,
+                              "e": int(time.time()) + max_age}, s.secret_key)
+        response.set_cookie(TICKET_COOKIE, ticket, max_age=max_age, httponly=True, secure=secure,
+                            samesite="strict", path="/")
 
 
 @router.post("/{portal}/login")
@@ -161,7 +171,7 @@ def login(portal: str, body: LoginIn, request: Request, response: Response, db: 
     audit(db, "login.success", actor_user_id=user.id, actor_role=assignment.role.name, request=request,
           portal=portal)
     db.commit()
-    _set_session_cookies(response, token, csrf, ttl * 60)
+    _set_session_cookies(response, token, csrf, ttl * 60, user_id=user.id, portal=portal)
     return {"redirect": f"/{portal}/dashboard", "must_change_password": user.must_change_password,
             "role": assignment.role.name}
 
@@ -174,6 +184,7 @@ def logout(request: Request, response: Response, principal: Principal = Depends(
     db.commit()
     response.delete_cookie(SESSION_COOKIE, path="/")
     response.delete_cookie(CSRF_COOKIE, path="/")
+    response.delete_cookie(TICKET_COOKIE, path="/")
     return {"ok": True, "redirect": f"/{principal.portal}/login"}
 
 

@@ -97,3 +97,30 @@ def verify_totp(secret: str | None, code: str | None, *, window: int = 1) -> boo
 def totp_uri(secret: str, account: str, issuer: str = "HAMAR SHIKSHA") -> str:
     return (f"otpauth://totp/{quote(issuer)}:{quote(account)}"
             f"?secret={secret}&issuer={quote(issuer)}&digits=6&period=30")
+
+
+# ------------------------------------------------------- portable session tickets --
+# Used only when settings.portable_sessions is on (serverless demo, see app/serverless.py).
+
+def sign_ticket(data: dict, secret: str) -> str:
+    import json
+
+    body = base64.urlsafe_b64encode(json.dumps(data, separators=(",", ":")).encode()).decode().rstrip("=")
+    mac = hmac.new(secret.encode(), body.encode(), hashlib.sha256).hexdigest()
+    return f"{body}.{mac}"
+
+
+def read_ticket(ticket: str, secret: str) -> dict | None:
+    """Return the ticket's data if the signature is valid, else None."""
+    import json
+
+    body, _, mac = (ticket or "").partition(".")
+    if not body or not mac:
+        return None
+    good = hmac.new(secret.encode(), body.encode(), hashlib.sha256).hexdigest()
+    if not hmac.compare_digest(good, mac):
+        return None
+    try:
+        return json.loads(base64.urlsafe_b64decode(body + "=" * (-len(body) % 4)))
+    except ValueError:
+        return None

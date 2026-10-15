@@ -23,8 +23,11 @@ schools, ~1,000 students; generated data only, no SCERT textbook text).
 ## 2. Use a hosted database (recommended for a client demo)
 
 Without a database URL each serverless instance unpacks its own copy of the demo database in
-`/tmp`: it works for a quick look, but sign-ins can be lost when Vercel starts another instance,
-and changes disappear. For a stable demonstration:
+`/tmp`. Sign-in still works across instances: a signed `hs_ticket` cookie lets any instance restore
+the session (`HS_PORTABLE_SESSIONS`, on automatically in this mode), and sessions last 7 days or
+until **Sign out**. Set `HS_SECRET_KEY` in Vercel so tickets are signed with your own secret.
+But changes you make (attendance, answers, appreciations) stay on the instance that saved them and
+disappear when it stops. For a stable demonstration:
 
 1. In the Vercel project: **Storage → Create → Neon (Postgres)** and connect it to the project.
    Vercel adds `DATABASE_URL`; `api/index.py` converts it for SQLAlchemy automatically.
