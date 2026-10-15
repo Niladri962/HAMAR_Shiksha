@@ -82,6 +82,10 @@ def create_app() -> FastAPI:
 
     # ------------------------------------------------------------- pages ----
     app.mount("/static", StaticFiles(directory=WEB / "static"), name="static")
+    if os.environ.get("VERCEL"):
+        from app.serverless import VercelPathMiddleware
+
+        app.add_middleware(VercelPathMiddleware)
 
     def page(name: str) -> FileResponse:
         return FileResponse(WEB / "pages" / name, headers={"Cache-Control": "no-cache"})
