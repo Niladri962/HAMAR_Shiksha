@@ -46,9 +46,18 @@ def _class_for(db: Session, p: Principal, class_id: int, subject_id: int) -> Cla
     return get_class_for_teacher(db, p, class_id, subject_id)
 
 
+TEMPORARY_STORAGE_MSG = ("This demo server has no shared database, so the lesson was saved on another copy of the "
+                         "server and is not available here. Connect a database to the deployment "
+                         "(docs/DEPLOY_VERCEL.md) to keep lessons.")
+
+
 def _lesson_for_teacher(db: Session, p: Principal, lesson_id: int) -> VideoLesson:
+    from app.config import get_settings
+
     v = db.get(VideoLesson, lesson_id)
     if v is None:
+        if get_settings().portable_sessions:
+            raise HTTPException(status.HTTP_409_CONFLICT, TEMPORARY_STORAGE_MSG)
         raise not_found("Video lesson")
     _class_for(db, p, v.class_section_id, v.subject_id)
     return v

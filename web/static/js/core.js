@@ -453,6 +453,11 @@
     langBtn?.addEventListener("click", () => HS.setLang(HS.lang === "hi" ? "en" : "hi"));
     try { HS.platform = await HS.api("/api/platform"); } catch (_) { HS.platform = { modules: {} }; }
     HS.module = (k, fallback) => (HS.platform.modules || {})[k] || fallback;
+    if (HS.platform.temporary_storage) {
+      document.body.prepend(el("div", { class: "banner banner-demo", role: "note" }, HS.pick(
+        "Demo server without a database: things you save (lessons, attendance, notes) may not be kept or seen by others. Connect a database to save permanently.",
+        "डेमो सर्वर पर डेटाबेस नहीं है: आपके सहेजे बदलाव (पाठ, उपस्थिति आदि) स्थायी नहीं हैं और दूसरों को न दिखें। स्थायी रूप से सहेजने के लिए डेटाबेस जोड़ें।")));
+    }
     if (me.must_change_password && !HS.offlineMode) await HS.passwordDialog(true);
     if (langBtn && me.portal !== "admin") langBtn.before(HS.sync.indicator());
     HS.sync.flush();

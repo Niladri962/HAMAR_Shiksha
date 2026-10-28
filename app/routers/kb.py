@@ -28,7 +28,9 @@ def platform():
     s = get_settings()
     return {"modules": s.module_names, "languages": sorted(gyan.SUPPORTED_LANGUAGES),
             "roadmap_languages": {"cg": "Chhattisgarhi", "gon": "Gondi", "hlb": "Halbi"},
-            "demo_mode": s.allow_demo_data, "voice": {"speech_to_text": bool(s.stt_model)}}
+            "demo_mode": s.allow_demo_data, "voice": {"speech_to_text": bool(s.stt_model)},
+            # Serverless demo without a shared database: saved changes are not shared between server copies.
+            "temporary_storage": s.portable_sessions}
 
 
 @router.get("/api/kb/status")
