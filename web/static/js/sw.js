@@ -1,10 +1,10 @@
 /* Service worker: caches the static app shell and the portal page shells
    (HTML without data). API responses are never cached here - offline data
    lives in the signed-in user's IndexedDB bundle and is cleared at logout. */
-const CACHE = "hs-shell-v4";
+const CACHE = "hs-shell-v5";
 const SHELL = [
   "/static/css/app.css", "/static/js/theme.js", "/static/js/i18n.js", "/static/js/core.js", "/static/js/charts.js",
-  "/static/js/voice.js", "/static/data/cg-districts.geojson",
+  "/static/js/voice.js", "/static/js/video.js", "/static/data/cg-districts.geojson",
   "/static/js/login.js", "/static/js/admin.js", "/static/js/teacher.js", "/static/js/student.js",
 ];
 const PAGES = ["/student/dashboard", "/teacher/dashboard", "/student/login", "/teacher/login", "/"];

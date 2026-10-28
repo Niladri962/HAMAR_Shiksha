@@ -49,6 +49,20 @@ Stated plainly so nobody mistakes the demonstration for a finished government sy
 - Benchmarks were run on one laptop (Ryzen 7 7445HS, 15 GB RAM, RTX 3050 4 GB). Target school
   hardware and Android devices have **not** been benchmarked.
 
+## AI video lessons
+
+- The "video" is an animated lesson played in the browser (scenes, pictures, spoken narration from
+  the device's text-to-speech, captions, quiz). It is **not generated footage**: generating real video
+  needs large cloud models, which this project does not use. It cannot be downloaded as an MP4.
+- Narration uses the voices installed on the device. Many phones have no Hindi voice; the lesson then
+  plays with captions only (a note says so).
+- The script comes from the 3B local model and can contain factual errors even though it is built
+  from the textbook pages (in testing it suggested spraying insecticide on larvae, and one quiz key
+  was debatable). Lessons stay drafts until a teacher reads and publishes them. Generation takes about
+  1-2 minutes on the development laptop's GPU.
+- On the Vercel demo (no model) lessons are assembled from the textbook passages, and without a shared
+  database a published lesson is visible only on the instance that saved it.
+
 ## Districts, divisions and the map
 
 - District and division **names** are real (33 districts in 5 revenue divisions, as of the 2022

@@ -1011,6 +1011,38 @@ class DigitalUsage(Base):
     is_demo: Mapped[bool] = mapped_column(Boolean, default=False)
 
 
+# ----------------------------------------------------------- video lessons ----
+
+class VideoLesson(Base):
+    """A narrated, animated lesson for one class and topic, drafted by Gyan SLM
+    from the approved textbook passages (or built from the passages when no
+    model is available), edited and published by a teacher. Used when the
+    subject teacher is unavailable, or for revision."""
+
+    __tablename__ = "video_lessons"
+    __table_args__ = (Index("ix_video_lesson_class", "class_section_id", "status"),)
+    id: Mapped[int] = mapped_column(primary_key=True)
+    class_section_id: Mapped[int] = mapped_column(ForeignKey("class_sections.id"))
+    subject_id: Mapped[int] = mapped_column(ForeignKey("subjects.id"))
+    topic: Mapped[str] = mapped_column(String(160))
+    title: Mapped[str] = mapped_column(String(200))
+    language: Mapped[str] = mapped_column(String(5), default="hi")
+    scenes: Mapped[list] = mapped_column(JSON, default=list)   # [{heading, narration, points[], visual}]
+    quiz: Mapped[list] = mapped_column(JSON, default=list)     # [{question, options[4], answer_index, explanation}]
+    sources: Mapped[list] = mapped_column(JSON, default=list)  # textbook citations
+    status: Mapped[str] = mapped_column(String(12), default="draft")  # draft|published|archived
+    reason: Mapped[str] = mapped_column(String(20), default="teacher_absent")  # teacher_absent|revision|catch_up
+    ai_generated: Mapped[bool] = mapped_column(Boolean, default=False)
+    model: Mapped[str | None] = mapped_column(String(80))
+    grounding: Mapped[float | None] = mapped_column(Float)
+    note: Mapped[str] = mapped_column(String(300), default="")
+    created_by: Mapped[int] = mapped_column(ForeignKey("users.id"))
+    published_by: Mapped[int | None] = mapped_column(ForeignKey("users.id"))
+    published_at: Mapped[datetime | None] = mapped_column(DateTime)
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=utcnow)
+    is_demo: Mapped[bool] = mapped_column(Boolean, default=False)
+
+
 # ------------------------------------------------------------- recognition ----
 
 class Appreciation(Base):

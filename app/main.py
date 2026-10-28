@@ -21,7 +21,7 @@ from app import database
 from app.config import get_settings
 from app.deps import SESSION_COOKIE
 from app.models import PORTALS, AuthSession, utcnow
-from app.routers import admin, auth, engage, growth, kb, pariksha, saathi, student, sync, teacher, voice
+from app.routers import admin, auth, engage, growth, kb, pariksha, saathi, student, sync, teacher, video, voice
 from app.security import token_digest
 
 WEB = Path(__file__).resolve().parent.parent / "web"
@@ -71,7 +71,7 @@ def create_app() -> FastAPI:
         return JSONResponse({"detail": "Internal error"}, status_code=500)
 
     for r in (auth.router, admin.router, teacher.router, saathi.router, pariksha.router, student.router,
-              sync.router, kb.router, voice.router, growth.router, engage.router):
+              sync.router, kb.router, voice.router, growth.router, engage.router, video.router):
         app.include_router(r)
 
     @app.get("/api/health")

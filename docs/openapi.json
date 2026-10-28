@@ -3658,7 +3658,7 @@
      "content": {
       "application/json": {
        "schema": {
-        "$ref": "#/components/schemas/GenerateIn"
+        "$ref": "#/components/schemas/app__routers__saathi__GenerateIn"
        }
       }
      },
@@ -6736,6 +6736,335 @@
     }
    }
   },
+  "/api/teacher/video-lessons/options": {
+   "get": {
+    "tags": [
+     "video-lessons"
+    ],
+    "summary": "Options",
+    "description": "Classes and subjects this teacher may make lessons for (head teacher: the whole school).",
+    "operationId": "options_api_teacher_video_lessons_options_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/teacher/video-lessons/generate": {
+   "post": {
+    "tags": [
+     "video-lessons"
+    ],
+    "summary": "Generate",
+    "operationId": "generate_api_teacher_video_lessons_generate_post",
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/app__routers__video__GenerateIn"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "201": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/teacher/video-lessons": {
+   "get": {
+    "tags": [
+     "video-lessons"
+    ],
+    "summary": "List Lessons",
+    "operationId": "list_lessons_api_teacher_video_lessons_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/teacher/video-lessons/{lesson_id}": {
+   "get": {
+    "tags": [
+     "video-lessons"
+    ],
+    "summary": "Get Lesson",
+    "operationId": "get_lesson_api_teacher_video_lessons__lesson_id__get",
+    "parameters": [
+     {
+      "name": "lesson_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "integer",
+       "title": "Lesson Id"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   },
+   "put": {
+    "tags": [
+     "video-lessons"
+    ],
+    "summary": "Edit Lesson",
+    "operationId": "edit_lesson_api_teacher_video_lessons__lesson_id__put",
+    "parameters": [
+     {
+      "name": "lesson_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "integer",
+       "title": "Lesson Id"
+      }
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/EditIn"
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/teacher/video-lessons/{lesson_id}/{action}": {
+   "post": {
+    "tags": [
+     "video-lessons"
+    ],
+    "summary": "Lesson Action",
+    "operationId": "lesson_action_api_teacher_video_lessons__lesson_id___action__post",
+    "parameters": [
+     {
+      "name": "lesson_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "integer",
+       "title": "Lesson Id"
+      }
+     },
+     {
+      "name": "action",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "enum": [
+        "publish",
+        "unpublish",
+        "archive"
+       ],
+       "type": "string",
+       "title": "Action"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/student/video-lessons": {
+   "get": {
+    "tags": [
+     "video-lessons"
+    ],
+    "summary": "Student Lessons",
+    "operationId": "student_lessons_api_student_video_lessons_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/student/video-lessons/{lesson_id}": {
+   "get": {
+    "tags": [
+     "video-lessons"
+    ],
+    "summary": "Student Lesson",
+    "operationId": "student_lesson_api_student_video_lessons__lesson_id__get",
+    "parameters": [
+     {
+      "name": "lesson_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "integer",
+       "title": "Lesson Id"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/student/video-lessons/{lesson_id}/watched": {
+   "post": {
+    "tags": [
+     "video-lessons"
+    ],
+    "summary": "Watched",
+    "operationId": "watched_api_student_video_lessons__lesson_id__watched_post",
+    "parameters": [
+     {
+      "name": "lesson_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "integer",
+       "title": "Lesson Id"
+      }
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/WatchedIn"
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
   "/api/health": {
    "get": {
     "summary": "Health",
@@ -7350,6 +7679,39 @@
     ],
     "title": "DoubtStatus"
    },
+   "EditIn": {
+    "properties": {
+     "title": {
+      "type": "string",
+      "maxLength": 150,
+      "minLength": 3,
+      "title": "Title"
+     },
+     "scenes": {
+      "items": {
+       "$ref": "#/components/schemas/SceneIn"
+      },
+      "type": "array",
+      "maxItems": 9,
+      "minItems": 1,
+      "title": "Scenes"
+     },
+     "quiz": {
+      "items": {
+       "$ref": "#/components/schemas/QuizIn"
+      },
+      "type": "array",
+      "maxItems": 3,
+      "title": "Quiz"
+     }
+    },
+    "type": "object",
+    "required": [
+     "title",
+     "scenes"
+    ],
+    "title": "EditIn"
+   },
    "EditPlanIn": {
     "properties": {
      "title": {
@@ -7606,64 +7968,6 @@
     ],
     "title": "FromBankIn"
    },
-   "GenerateIn": {
-    "properties": {
-     "class_id": {
-      "type": "integer",
-      "title": "Class Id"
-     },
-     "subject_id": {
-      "type": "integer",
-      "title": "Subject Id"
-     },
-     "topic": {
-      "type": "string",
-      "maxLength": 120,
-      "minLength": 2,
-      "title": "Topic"
-     },
-     "learning_outcome_id": {
-      "anyOf": [
-       {
-        "type": "integer"
-       },
-       {
-        "type": "null"
-       }
-      ],
-      "title": "Learning Outcome Id"
-     },
-     "language": {
-      "type": "string",
-      "enum": [
-       "en",
-       "hi"
-      ],
-      "title": "Language",
-      "default": "hi"
-     },
-     "minutes": {
-      "type": "integer",
-      "maximum": 120.0,
-      "minimum": 10.0,
-      "title": "Minutes",
-      "default": 40
-     },
-     "notes": {
-      "type": "string",
-      "maxLength": 500,
-      "title": "Notes",
-      "default": ""
-     }
-    },
-    "type": "object",
-    "required": [
-     "class_id",
-     "subject_id",
-     "topic"
-    ],
-    "title": "GenerateIn"
-   },
    "GoalIn": {
     "properties": {
      "kind": {
@@ -7889,6 +8193,44 @@
      "events"
     ],
     "title": "PushIn"
+   },
+   "QuizIn": {
+    "properties": {
+     "question": {
+      "type": "string",
+      "maxLength": 200,
+      "minLength": 3,
+      "title": "Question"
+     },
+     "options": {
+      "items": {
+       "type": "string"
+      },
+      "type": "array",
+      "maxItems": 4,
+      "minItems": 4,
+      "title": "Options"
+     },
+     "answer_index": {
+      "type": "integer",
+      "maximum": 3.0,
+      "minimum": 0.0,
+      "title": "Answer Index"
+     },
+     "explanation": {
+      "type": "string",
+      "maxLength": 200,
+      "title": "Explanation",
+      "default": ""
+     }
+    },
+    "type": "object",
+    "required": [
+     "question",
+     "options",
+     "answer_index"
+    ],
+    "title": "QuizIn"
    },
    "ReadIn": {
     "properties": {
@@ -8159,6 +8501,42 @@
      "choice"
     ],
     "title": "RevisionAnswer"
+   },
+   "SceneIn": {
+    "properties": {
+     "heading": {
+      "type": "string",
+      "maxLength": 90,
+      "minLength": 1,
+      "title": "Heading"
+     },
+     "narration": {
+      "type": "string",
+      "maxLength": 700,
+      "minLength": 10,
+      "title": "Narration"
+     },
+     "points": {
+      "items": {
+       "type": "string"
+      },
+      "type": "array",
+      "maxItems": 4,
+      "title": "Points"
+     },
+     "visual": {
+      "type": "string",
+      "maxLength": 4,
+      "title": "Visual",
+      "default": "📘"
+     }
+    },
+    "type": "object",
+    "required": [
+     "heading",
+     "narration"
+    ],
+    "title": "SceneIn"
    },
    "SchoolStatusIn": {
     "properties": {
@@ -8573,6 +8951,26 @@
     ],
     "title": "VerifyIn"
    },
+   "WatchedIn": {
+    "properties": {
+     "quiz_correct": {
+      "type": "integer",
+      "maximum": 3.0,
+      "minimum": 0.0,
+      "title": "Quiz Correct",
+      "default": 0
+     },
+     "quiz_total": {
+      "type": "integer",
+      "maximum": 3.0,
+      "minimum": 0.0,
+      "title": "Quiz Total",
+      "default": 0
+     }
+    },
+    "type": "object",
+    "title": "WatchedIn"
+   },
    "WorksheetIn": {
     "properties": {
      "subject_id": {
@@ -8838,6 +9236,64 @@
     ],
     "title": "AskIn"
    },
+   "app__routers__saathi__GenerateIn": {
+    "properties": {
+     "class_id": {
+      "type": "integer",
+      "title": "Class Id"
+     },
+     "subject_id": {
+      "type": "integer",
+      "title": "Subject Id"
+     },
+     "topic": {
+      "type": "string",
+      "maxLength": 120,
+      "minLength": 2,
+      "title": "Topic"
+     },
+     "learning_outcome_id": {
+      "anyOf": [
+       {
+        "type": "integer"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Learning Outcome Id"
+     },
+     "language": {
+      "type": "string",
+      "enum": [
+       "en",
+       "hi"
+      ],
+      "title": "Language",
+      "default": "hi"
+     },
+     "minutes": {
+      "type": "integer",
+      "maximum": 120.0,
+      "minimum": 10.0,
+      "title": "Minutes",
+      "default": 40
+     },
+     "notes": {
+      "type": "string",
+      "maxLength": 500,
+      "title": "Notes",
+      "default": ""
+     }
+    },
+    "type": "object",
+    "required": [
+     "class_id",
+     "subject_id",
+     "topic"
+    ],
+    "title": "GenerateIn"
+   },
    "app__routers__student__AskIn": {
     "properties": {
      "question": {
@@ -8933,6 +9389,50 @@
      "decision"
     ],
     "title": "ReviewIn"
+   },
+   "app__routers__video__GenerateIn": {
+    "properties": {
+     "class_id": {
+      "type": "integer",
+      "title": "Class Id"
+     },
+     "subject_id": {
+      "type": "integer",
+      "title": "Subject Id"
+     },
+     "topic": {
+      "type": "string",
+      "maxLength": 160,
+      "minLength": 3,
+      "title": "Topic"
+     },
+     "language": {
+      "type": "string",
+      "enum": [
+       "hi",
+       "en"
+      ],
+      "title": "Language",
+      "default": "hi"
+     },
+     "reason": {
+      "type": "string",
+      "enum": [
+       "teacher_absent",
+       "revision",
+       "catch_up"
+      ],
+      "title": "Reason",
+      "default": "teacher_absent"
+     }
+    },
+    "type": "object",
+    "required": [
+     "class_id",
+     "subject_id",
+     "topic"
+    ],
+    "title": "GenerateIn"
    }
   }
  }

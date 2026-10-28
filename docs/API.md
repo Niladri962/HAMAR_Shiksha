@@ -215,6 +215,20 @@ Out-of-scope resources return 404; wrong portal/role returns 403.
 |---|---|---|
 | GET | `/api/student/recognition` | Student Recognition |
 
+## AI video lessons (teacher and student)
+
+| Method | Path | Description |
+|---|---|---|
+| GET | `/api/student/video-lessons` | Student Lessons |
+| GET | `/api/student/video-lessons/{lesson_id}` | Student Lesson |
+| POST | `/api/student/video-lessons/{lesson_id}/watched` | Watched |
+| GET | `/api/teacher/video-lessons` | List Lessons |
+| POST | `/api/teacher/video-lessons/generate` | Generate |
+| GET | `/api/teacher/video-lessons/options` | Classes and subjects this teacher may make lessons for (head teacher: the whole school). |
+| GET | `/api/teacher/video-lessons/{lesson_id}` | Get Lesson |
+| PUT | `/api/teacher/video-lessons/{lesson_id}` | Edit Lesson |
+| POST | `/api/teacher/video-lessons/{lesson_id}/{action}` | Lesson Action |
+
 ## Offline synchronisation
 
 | Method | Path | Description |

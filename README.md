@@ -39,6 +39,10 @@ modules + three role-specific portals.**
   by chapter; *Ask teacher* privately; a *class doubt board* where classmates answer (teacher
   moderated, screened for personal details and unkind words); *study buddies* paired by the
   teacher from mastery data. Teachers get a *Student help* tab.
+- **AI video lessons**: when a subject teacher is unavailable, a teacher or the head teacher types a
+  topic and Gyan SLM writes a narrated, animated video lesson from the class's SCERT textbook pages
+  (Hindi or English voice, captions, quiz). The teacher edits and publishes it; students watch it under
+  *Learn → Video lessons* and earn XP. Teacher → *Teacher Saathi → 🎬 AI video lesson*.
 - **Progress grades and corrective actions**: every class-subject and school is graded A (on track)
   to D (needs support) against its milestones, from what was planned, taught and learned, with the
   next steps (outcomes to cover, outcomes to re-teach). Teacher → *Progress & follow-up*;

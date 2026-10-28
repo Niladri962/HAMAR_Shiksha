@@ -371,8 +371,8 @@
   }
 
   async function saathi(c) {
-    const sections = [["plan", "Academic plan"], ["plans", "Lesson plans"], ["ask", "Ask Saathi"], ["worksheet", "Worksheets"],
-      ["remediation", "Remediation"], ["training", "Micro-courses"]];
+    const sections = [["plan", "Academic plan"], ["plans", "Lesson plans"], ["video", "🎬 AI video lesson"], ["ask", "Ask Saathi"],
+      ["worksheet", "Worksheets"], ["remediation", "Remediation"], ["training", "Micro-courses"]];
     if (T.is_head_teacher) sections.push(["substitute", "Substitute lesson"]);
     const nav = el("div", { class: "row", role: "group", "aria-label": "Teacher Saathi sections" }, sections.map(([id, label]) =>
       el("button", { class: saathiSection === id ? "primary" : "", "aria-pressed": String(saathiSection === id),
@@ -382,7 +382,7 @@
       el("p", { class: "small muted" }, `Drafts from ${HS.module("slm", "Gyan SLM")} are grounded in the approved textbooks and always need your review. No student data is sent to the model.`),
       nav, body));
     const fns = { plan: saathiPlan, plans: saathiPlans, ask: saathiAsk, worksheet: saathiWorksheet, remediation: saathiRemediation,
-      training: saathiTraining, substitute: saathiSubstitute };
+      training: saathiTraining, substitute: saathiSubstitute, video: saathiVideo };
     await HS.load(body, fns[saathiSection]);
   }
 
@@ -596,6 +596,117 @@
     ], mods, { onRow: open })), holder));
   }
 
+  // ------------------------------------------------- AI video lessons --
+  let videoOpen = null; // lesson id open in the editor
+  const REASONS = [["teacher_absent", "Subject teacher not available"], ["revision", "Revision"], ["catch_up", "Catch-up for absent students"]];
+  const statusChip = (s) => el("span", { class: "chip " + (s === "published" ? "st-current" : "st-stale") }, s === "published" ? "published" : "draft");
+
+  async function saathiVideo(c) {
+    const [opt, mine] = await Promise.all([HS.api("/api/teacher/video-lessons/options"), HS.api("/api/teacher/video-lessons")]);
+    if (videoOpen) {
+      const v = mine.find((x) => x.id === videoOpen) || await HS.api(`/api/teacher/video-lessons/${videoOpen}`).catch(() => null);
+      if (v) return videoEditor(c, v);
+      videoOpen = null;
+    }
+    const classSel = el("select", { name: "class_id", "aria-label": "Class" }, opt.classes.map((x) => el("option", { value: x.id }, x.label)));
+    const subjSel = el("select", { name: "subject_id", "aria-label": "Subject" });
+    const fillSubjects = () => {
+      const cl = opt.classes.find((x) => String(x.id) === classSel.value);
+      HS.mount(subjSel, (cl ? cl.subjects : []).map((s) => el("option", { value: s.id }, HS.pick(s.name, s.name_hi))));
+    };
+    classSel.addEventListener("change", fillSubjects);
+    fillSubjects();
+    const out = el("div");
+    const form = el("form", { class: "stack-sm" },
+      el("div", { class: "inline-fields" },
+        el("div", null, el("label", null, "Class"), classSel),
+        el("div", null, el("label", null, "Subject"), subjSel),
+        el("div", null, el("label", null, "Language"), el("select", { name: "language" }, el("option", { value: "hi" }, "हिंदी"), el("option", { value: "en" }, "English"))),
+        el("div", null, el("label", null, "Why"), el("select", { name: "reason" }, REASONS.map(([v, l]) => el("option", { value: v }, l))))),
+      el("div", null, el("label", { for: "vl-topic" }, "Topic (as in the textbook)"),
+        el("input", { id: "vl-topic", name: "topic", required: true, minlength: "3", maxlength: "160", placeholder: "e.g. भिन्न / Fractions, Photosynthesis, हमारा छत्तीसगढ़" })),
+      el("button", { class: "primary", type: "submit" }, "🎬 Make video lesson"), out);
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const d = HS.formData(form);
+      const btn = form.querySelector("button[type=submit]");
+      btn.disabled = true;
+      HS.mount(out, el("p", { class: "small muted", role: "status" }, "Gyan is writing the lesson from the textbook… this takes 1-2 minutes on the school server."));
+      try {
+        const v = await HS.api("/api/teacher/video-lessons/generate", { method: "POST", body: {
+          class_id: Number(d.class_id), subject_id: Number(d.subject_id), topic: d.topic, language: d.language, reason: d.reason } });
+        videoOpen = v.id; render();
+      } catch (ex) { HS.mount(out, el("p", { class: "form-error" }, ex.message)); btn.disabled = false; }
+    });
+    HS.mount(c, el("div", { class: "stack" },
+      card("AI video lesson", el("p", { class: "small muted" },
+        "When a subject teacher is not available, give the topic and Gyan makes a narrated video lesson from the class's approved textbook: animated scenes, voice in Hindi or English, captions and a short quiz. You check and edit it, then publish it to the class."),
+      opt.classes.length ? form : HS.empty("No classes available.")),
+      card("Video lessons", mine.length ? el("div", { class: "vl-list" }, mine.map((v, i) => el("button", { type: "button", class: "vl-card", onclick: () => { videoOpen = v.id; render(); } },
+        el("div", { class: `vl-thumb vl-bg-${i % 5}`, "aria-hidden": "true" }, (v.scenes[0] && v.scenes[0].visual) || "📘"),
+        el("strong", null, v.title),
+        el("div", { class: "row small" }, statusChip(v.status), el("span", { class: "muted" }, `${v.class} · ${HS.pick(v.subject, v.subject_hi)} · ~${v.minutes} min`)),
+        el("div", { class: "small muted" }, `${v.ai_generated ? "AI draft" : "From textbook passages"} · watched by ${v.watched_by || 0}`)))) :
+        HS.empty("No video lessons yet."))));
+  }
+
+  function videoEditor(c, v) {
+    const preview = el("div");
+    const showPreview = (lesson) => HS.mount(preview, HS.videoPlayer(lesson).root);
+    showPreview(v);
+    const title = el("input", { value: v.title, maxlength: "150", "aria-label": "Title" });
+    const sceneBoxes = v.scenes.map((s, i) => {
+      const h = el("input", { value: s.heading, maxlength: "90", "aria-label": `Scene ${i + 1} heading` });
+      const vis = el("input", { value: s.visual || "", maxlength: "4", class: "compact", "aria-label": `Scene ${i + 1} picture (emoji)` });
+      vis.style.width = "4.5rem";
+      const n = el("textarea", { maxlength: "700", "aria-label": `Scene ${i + 1} narration` }, s.narration);
+      const pts = el("textarea", { "aria-label": `Scene ${i + 1} points, one per line` }, (s.points || []).join("\n"));
+      pts.style.minHeight = "56px";
+      const box = el("div", { class: "vl-scene-edit" },
+        el("div", { class: "row" }, el("strong", null, `Scene ${i + 1}`), vis, h),
+        el("label", { class: "small muted" }, "Narration (spoken)"), n,
+        el("label", { class: "small muted" }, "On-screen points (one per line)"), pts,
+        el("button", { type: "button", class: "small-btn", onclick: () => { box.remove(); } }, "Remove scene"));
+      box._get = () => ({ heading: h.value.trim(), visual: vis.value.trim() || "📘", narration: n.value.trim(),
+        points: pts.value.split("\n").map((x) => x.trim()).filter(Boolean).slice(0, 4) });
+      return box;
+    });
+    const scenesWrap = el("div", { class: "stack-sm" }, sceneBoxes);
+    const msg = el("p", { class: "form-error", role: "alert" });
+    const collect = () => ({ title: title.value.trim(), scenes: [...scenesWrap.children].map((b) => b._get()), quiz: v.quiz || [] });
+    const save = async () => {
+      const r = await HS.api(`/api/teacher/video-lessons/${v.id}`, { method: "PUT", body: collect() });
+      Object.assign(v, r); showPreview(v); return r;
+    };
+    const act = async (action) => {
+      try {
+        if (action === "publish") await save();
+        await HS.api(`/api/teacher/video-lessons/${v.id}/${action}`, { method: "POST" });
+        HS.toast(action === "publish" ? "Published: students of this class can watch it now" : "Done");
+        if (action === "archive") videoOpen = null;
+        render();
+      } catch (ex) { msg.textContent = ex.message; }
+    };
+    HS.mount(c, el("div", { class: "stack" },
+      el("div", { class: "row" }, el("button", { type: "button", onclick: () => { videoOpen = null; render(); } }, "← All video lessons"),
+        el("span", { class: "spacer" }), statusChip(v.status), el("span", { class: "small muted" }, `${v.class} · ${HS.pick(v.subject, v.subject_hi)} · watched by ${v.watched_by || 0}`)),
+      card(v.title, el("p", { class: "small " + (v.grounding !== null && v.grounding < 0.45 ? "form-error" : "muted") }, v.note || ""),
+        el("span", { class: "chip " + (v.ai_generated ? "ai-badge" : "") }, v.ai_generated ? `AI draft (${v.model})` : "Built from textbook passages"),
+        preview, v.sources.length ? HS.citations(v.sources) : null),
+      card("Check and edit", el("p", { class: "small muted" }, "Read every scene against the textbook. Students see only what you publish."),
+        el("div", null, el("label", null, "Title"), title), scenesWrap,
+        v.quiz && v.quiz.length ? el("details", null, el("summary", null, `Quiz (${v.quiz.length} questions)`),
+          el("ol", { class: "small" }, v.quiz.map((q) => el("li", null, q.question, " — ", el("strong", null, q.options[q.answer_index]))))) : null,
+        msg,
+        el("div", { class: "row" },
+          el("button", { type: "button", onclick: async () => { try { await save(); HS.toast("Saved"); } catch (ex) { msg.textContent = ex.message; } } }, "Save changes"),
+          v.status === "published"
+            ? el("button", { type: "button", onclick: () => act("unpublish") }, "Unpublish")
+            : el("button", { type: "button", class: "primary", onclick: () => act("publish") }, "Publish to class"),
+          el("span", { class: "spacer" }),
+          el("button", { type: "button", class: "danger", onclick: () => { if (confirm("Archive this lesson?")) act("archive"); } }, "Archive")))));
+  }
+
   async function saathiSubstitute(c) {
     const [plans, cls, dig] = await Promise.all([HS.api("/api/teacher/saathi/approved-plans"), HS.api("/api/teacher/school/classes"),
       digitalResources().catch(() => ({ resources: [] }))]);
@@ -615,7 +726,9 @@
       catch (ex) { HS.toast(ex.message, true); }
     });
     HS.mount(c, card("Substitute lesson (teacher absent)", el("p", { class: "small muted" },
-      "Launch an approved lesson plan for a class whose subject teacher is absent. Students see it on their home screen. A school supervisor must stay with the class; the AI does not replace a teacher."), form));
+      "Launch an approved lesson plan for a class whose subject teacher is absent. Students see it on their home screen. A school supervisor must stay with the class; the AI does not replace a teacher."), form,
+      el("p", { class: "small" }, "No lesson plan for the topic? ", el("button", { type: "button", class: "small-btn", onclick: () => { saathiSection = "video"; render(); } },
+        "🎬 Make an AI video lesson instead"))));
   }
 
   // ----------------------------------------------------------- Pariksha --

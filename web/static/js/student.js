@@ -24,7 +24,7 @@
   nav.append(...buttons);
   // Each section has sub-views chosen with a segmented control.
   const SUB = {
-    learn: [["activities", "📝", "Activities", "गतिविधियाँ"], ["books", "📚", "Textbooks", "पाठ्यपुस्तकें"]],
+    learn: [["activities", "📝", "Activities", "गतिविधियाँ"], ["videos", "🎬", "Video lessons", "वीडियो पाठ"], ["books", "📚", "Textbooks", "पाठ्यपुस्तकें"]],
     quiz: [["quizzes", "✏️", "Quizzes", "क्विज़"], ["revise", "🔁", "Fix my mistakes", "गलतियाँ सुधारें"]],
     help: [["ai", "🤖", "Ask Gyan", "ज्ञान से पूछें"], ["teacher", "👩‍🏫", "Ask teacher", "शिक्षक से पूछें"],
       ["class", "👥", "Class doubts", "कक्षा के प्रश्न"], ["buddies", "🤝", "Study buddies", "पढ़ाई के साथी"]],
@@ -32,7 +32,7 @@
   };
   const sub = { learn: "activities", quiz: "quizzes", help: "ai", me: "growth" };
   const VIEWS = {
-    learn: { activities: (c) => learn(c), books: (c) => books(c) },
+    learn: { activities: (c) => learn(c), videos: (c) => videos(c), books: (c) => books(c) },
     quiz: { quizzes: (c) => quiz(c), revise: (c) => revise(c) },
     help: { ai: (c) => ask(c), teacher: (c) => doubts(c, "teacher"), class: (c) => doubts(c, "class"), buddies: (c) => buddies(c) },
     me: { growth: (c) => growth(c), badges: (c) => badges(c), progress: (c) => progress(c) },
@@ -61,11 +61,14 @@
 
   // --------------------------------------------------------------- home --
   async function home(c) {
-    const [work, recs, prog, live, gr, rec] = await Promise.all([HS.api("/api/student/assignments"), HS.api("/api/student/recommendations"),
-      HS.api("/api/student/progress"), HS.api("/api/student/live-lesson"), HS.api("/api/student/growth"), HS.api("/api/student/recognition")]);
+    const [work, recs, prog, live, gr, rec, vids] = await Promise.all([HS.api("/api/student/assignments"), HS.api("/api/student/recommendations"),
+      HS.api("/api/student/progress"), HS.api("/api/student/live-lesson"), HS.api("/api/student/growth"), HS.api("/api/student/recognition"),
+      HS.api("/api/student/video-lessons").catch(() => [])]);
     HS.sync.pull(); // refresh the offline bundle while online
     const open = work.filter((w) => !w.submitted);
     const nextSteps = [];
+    vids.filter((v) => !v.watched).slice(0, 2).forEach((v) => nextSteps.push(el("button", { class: "big-item next-step", onclick: () => { videoToOpen = v.id; go("learn", "videos"); } },
+      el("span", null, "🎬 ", el("strong", null, HS.pick(`New video lesson: ${v.title}`, `नया वीडियो पाठ: ${v.title}`))), el("span", null, "›"))));
     if (gr.revision.due) nextSteps.push(el("button", { class: "big-item next-step", onclick: () => go("quiz", "revise") },
       el("span", null, "🔁 ", el("strong", null, HS.pick(`${gr.revision.due} ${gr.revision.due === 1 ? "mistake" : "mistakes"} to fix today`, `आज ${gr.revision.due} गलतियाँ सुधारें`))), el("span", null, "›")));
     if (gr.class_doubts_waiting) nextSteps.push(el("button", { class: "big-item next-step", onclick: () => go("help", "class") },
@@ -343,6 +346,36 @@
         ? el("div", { class: "badges" }, gr.revision.topics.map((t) => el("span", { class: "badge-pill" }, `${t.topic} (${t.open})`)))
         : HS.empty(HS.pick("No open mistakes. Well done!", "कोई गलती बाकी नहीं। शाबाश!")),
       gr.revision.due ? el("button", { class: "primary", onclick: () => go("quiz", "revise") }, HS.pick(`Fix ${gr.revision.due} mistakes now`, `अभी ${gr.revision.due} गलतियाँ सुधारें`)) : null)));
+  }
+
+  // ------------------------------------------------------ video lessons --
+  let videoToOpen = null;
+  async function videos(c) {
+    const list = await HS.api("/api/student/video-lessons");
+    const open = async (id) => {
+      const v = await HS.api(`/api/student/video-lessons/${id}`);
+      const player = HS.videoPlayer(v, { autoplay: true, onComplete: async (correct, total) => {
+        try {
+          const r = await HS.api(`/api/student/video-lessons/${id}/watched`, { method: "POST", body: { quiz_correct: correct, quiz_total: total } });
+          HS.toast(total ? HS.pick(`${correct}/${total} correct${r.first_time ? " · +5 XP" : ""}`, `${correct}/${total} सही${r.first_time ? " · +5 XP" : ""}`)
+            : HS.pick(r.first_time ? "Lesson complete · +5 XP" : "Lesson complete", r.first_time ? "पाठ पूरा · +5 XP" : "पाठ पूरा"));
+        } catch (ex) { HS.toast(ex.message, true); }
+      } });
+      HS.mount(c, el("div", { class: "stack" },
+        el("button", { type: "button", class: "small-btn", onclick: () => { player.stop(); videos(c); } }, "← " + HS.pick("All video lessons", "सभी वीडियो पाठ")),
+        el("div", null, el("h2", null, v.title), el("p", { class: "small muted" }, `${HS.pick(v.subject, v.subject_hi)} · ~${v.minutes} ${HS.pick("min", "मिनट")} · ` +
+          (v.ai_generated ? HS.pick("Made with AI from your textbook and checked by your teacher", "आपकी पाठ्यपुस्तक से AI द्वारा बनाया, शिक्षक द्वारा जाँचा गया")
+            : HS.pick("Made from your textbook by your teacher", "आपके शिक्षक ने पाठ्यपुस्तक से बनाया")))),
+        player.root, v.sources && v.sources.length ? HS.citations(v.sources) : null));
+    };
+    if (videoToOpen) { const id = videoToOpen; videoToOpen = null; return open(id); }
+    HS.mount(c, el("div", { class: "stack" },
+      el("p", { class: "small muted" }, HS.pick("Short video lessons your teacher made for your class. Turn on the sound!", "आपके शिक्षक द्वारा आपकी कक्षा के लिए बनाए छोटे वीडियो पाठ। आवाज़ चालू रखें!")),
+      list.length ? el("div", { class: "vl-list" }, list.map((v, i) => el("button", { type: "button", class: "vl-card", onclick: () => open(v.id) },
+        el("div", { class: `vl-thumb vl-bg-${i % 5}`, "aria-hidden": "true" }, (v.scenes[0] && v.scenes[0].visual) || "🎬"),
+        el("strong", null, (v.watched ? "✓ " : "▶ ") + v.title),
+        el("span", { class: "small muted" }, `${HS.pick(v.subject, v.subject_hi)} · ~${v.minutes} ${HS.pick("min", "मिनट")}${v.watched ? " · " + HS.pick("watched", "देखा") : ""}`))))
+        : HS.empty(HS.pick("No video lessons yet. Your teacher will add them.", "अभी कोई वीडियो पाठ नहीं। आपके शिक्षक जोड़ेंगे।"))));
   }
 
   // ------------------------------------------- badges and certificates --

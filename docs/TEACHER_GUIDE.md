@@ -34,6 +34,14 @@ small-group time.
   without a recorded qualification.
 - *Substitute lesson* (head teacher): when a teacher is absent, launch an approved lesson plan
   for that class. A supervisor must stay with the class; the AI does not replace a teacher.
+- *🎬 AI video lesson*: when a subject teacher is not available (or for revision / catch-up), choose
+  the class and subject, type the topic as it appears in the textbook and press **Make video lesson**.
+  Gyan writes a short lesson from that class's textbook pages (1-2 minutes on the school server):
+  scenes with pictures, narration in Hindi or English, captions and a 3-question quiz. Press ▶ to
+  preview it, correct any scene (heading, spoken narration, on-screen points), then **Publish to
+  class**. Students find it under *Learn → Video lessons* and on their home screen; the list shows
+  how many have watched it. Head teachers can make lessons for any class in the school. If the
+  model is not available, the lesson is built from the textbook passages and labelled so.
 
 **Pariksha** (assessments):
 - *Review queue*: short answers the engine could not mark with confidence, and all descriptive

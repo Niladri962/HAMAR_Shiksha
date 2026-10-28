@@ -108,7 +108,21 @@ class FakeSLM:
         user = messages[-1]["content"]
         self.calls.append({"system": messages[0]["content"], "prompt": user, "schema": schema})
         data = None
-        if schema is not None:
+        if schema is not None and "scenes" in schema.get("properties", {}):
+            # Video lesson script built from the first source passage (grounded), plus a bad scene.
+            m = re.search(r'<source id="S1"[^>]*>\n(.*?)\n</source>', user, re.S)
+            words = (m.group(1) if m else "").split()
+            chunk = lambda a, b: " ".join(words[a:b]) or "Fractions show parts of a whole."
+            data = {"title": "Fractions made easy", "scenes": [
+                {"heading": "What is a fraction?", "narration": chunk(0, 30) + " [S1]", "points": ["Part of a whole"], "visual": "🍕"},
+                {"heading": "Look closely", "narration": chunk(30, 60), "points": ["Numerator", "Denominator"]},
+                {"heading": "Let us revise", "narration": chunk(0, 25), "points": []},
+                {"heading": "", "narration": "dropped: no heading"},
+            ], "quiz": [{"question": "Which is bigger, 1/3 or 1/5?", "options": ["1/3", "1/5", "Equal", "Cannot say"],
+                         "answer_index": 0, "explanation": "Fewer parts means bigger parts."},
+                        {"question": "bad", "options": ["one"], "answer_index": 0}]}
+            text = "{}"
+        elif schema is not None:
             data = {"questions": [
                 {"text": "Which is bigger, 1/3 or 1/5?", "options": ["1/3", "1/5", "Equal", "Cannot say"],
                  "answer_index": 0, "explanation": "Fewer parts means bigger parts."},
